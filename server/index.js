@@ -2,6 +2,8 @@ import express from "express";
 import mysql from 'mysql';
 import cors from "cors";
 import bcrypt from "bcrypt";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const app = express();
