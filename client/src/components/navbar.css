@@ -1,0 +1,58 @@
+/* Navbar gradient background */
+@import url('https://fonts.googleapis.com/css2?family=Meow+Script&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+
+.navbar-custom {
+    background: linear-gradient(to right, #0b1a54 40%, #6a8bc2, #eef2ff) !important;
+    padding: 15px 20px;
+  }
+  
+  /* Make sure navbar links are visible */
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: white !important;
+  }
+
+  .navLink :hover{
+    color: #6a8bc2;
+  }
+  .navbar-brand{
+    font-family: "Playfair", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-size: 22px;
+  font-variation-settings: "wdth" 100;
+  }
+  
+  .navbar-custom .nav-link:hover {
+    color: #ffd700 !important;
+  }
+  
+  /* Style for search bar */
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .search-container input {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #0b1a54;
+    border-radius: 5px;
+  }
+  
+  /* Custom Search Button */
+  .btn-custom {
+    background-color: #0b1a54 !important;
+    color: white !important;
+    border: 2px solid #0b1a54 !important;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .btn-custom:hover {
+    background-color: white !important;
+    color: #0b1a54 !important;
+    border: 2px solid #0b1a54 !important;
+  }
+  

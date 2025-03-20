@@ -76,6 +76,8 @@ function Login() {
                             />
                             {errors.password && <span className="text-danger">{errors.password}</span>}
                         </div>
+                    <Link to="/send_recovery_email" className="d-flex justify-content-end text-success text-decoration-none small">Forgot Password?</Link>
+        
                         <button type='submit' className='btn btn-success w-100 rounded-0'>Login</button>
                     </form>
                     <p>Don't Have an Account?</p>

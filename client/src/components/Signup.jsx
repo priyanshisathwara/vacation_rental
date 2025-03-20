@@ -16,7 +16,6 @@ export default function Signup() {
         e.preventDefault()
         const newValues = { name, email, password };
 
-        // Validate inputs before proceeding
         const validationErrors = Validation("", newValues);
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) {
