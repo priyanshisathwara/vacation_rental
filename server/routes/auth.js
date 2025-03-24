@@ -10,6 +10,4 @@ router.post("/reset-password", sendResetPasswordMail);
 
 
 
-
-
 export default router;

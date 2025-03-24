@@ -66,9 +66,6 @@ export const verifyOtp = async (req, res) => {
 
   return res.status(200).json({message : "successfully verify"})
  })
- 
-
-
   return 
 }
 

@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import OtpForm from './components/otpForm';
 import Forgot from './components/Forgot';
+import AddPlace from './components/AddPlace';
 
 
 
@@ -20,10 +21,7 @@ function App() {
     <Route path="/login" element={<Login />} />
     <Route path='/forgot' element={<Forgot />}/>
     <Route path='/otp-form/:email' element={<OtpForm />}/>
-  
-  
-
-  
+    <Route path='/add-places' element={<AddPlace />}/>
    
    </Routes>
    </BrowserRouter>
