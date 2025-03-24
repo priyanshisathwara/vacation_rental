@@ -1,7 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function Forgot() {
-   
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -15,8 +19,16 @@ function Forgot() {
 
         setErrors({});
 
+        axios.post('http://localhost:8000/api/auth/reset-password', {email })
+            .then(result => {
+                console.log(result)
+                toast.success('OTP sended Successfully');
+                setTimeout(() => navigate(`/otp-form/${email}`), 1000);
+            })
+            .catch(err => console.log(err))
         console.log("Submitting email:", email);
-    };
+    }
+
 
     return (
         <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
@@ -43,8 +55,10 @@ function Forgot() {
                     </button>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
-}
+};
+
 
 export default Forgot;

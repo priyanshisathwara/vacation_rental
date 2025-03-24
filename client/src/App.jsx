@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Signup from './components/Signup';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import OtpForm from './components/otpForm';
 import Forgot from './components/Forgot';
-import OTPVerification from './components/OTPInput';
-import ResetPassword from './components/Reset';
+
+
 
 
 
@@ -18,8 +19,12 @@ function App() {
     <Route path='/register' element={<Signup />}></Route>
     <Route path="/login" element={<Login />} />
     <Route path='/forgot' element={<Forgot />}/>
-    <Route path='/send_recovery_email' element={<OTPVerification />}/>
-    <Route path='/reset-password' element={<ResetPassword />}/>
+    <Route path='/otp-form/:email' element={<OtpForm />}/>
+  
+  
+
+  
+   
    </Routes>
    </BrowserRouter>
   )

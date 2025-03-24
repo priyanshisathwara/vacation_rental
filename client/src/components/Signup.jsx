@@ -22,7 +22,7 @@ export default function Signup() {
             toast.error("Please enter valid values")
             return;
         }
-        axios.post('http://localhost:8000/register', { name, email, password })
+        axios.post('http://localhost:8000/api/auth/register', { name, email, password })
             .then(result => {
                 console.log(result)
                 toast.success('Register Successfully');

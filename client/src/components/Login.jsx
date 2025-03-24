@@ -24,7 +24,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8000/login", newValues);
+            const response = await axios.post("http://localhost:8000/api/auth/login", newValues);
             console.log("Response Data:", response.data);
 
             if (response.data.Login) {
@@ -76,7 +76,7 @@ function Login() {
                             />
                             {errors.password && <span className="text-danger">{errors.password}</span>}
                         </div>
-                    <Link to="/send_recovery_email" className="d-flex justify-content-end text-success text-decoration-none small">Forgot Password?</Link>
+                    <Link to="/forgot" className="d-flex justify-content-end text-success text-decoration-none small">Forgot Password?</Link>
         
                         <button type='submit' className='btn btn-success w-100 rounded-0'>Login</button>
                     </form>
