@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 
-const OtpFrom= () => {
+const OtpFrom = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const { email } = useParams();
+
   useEffect(() => {
     let interval;
     if (timer > 0) {
@@ -38,29 +39,44 @@ const OtpFrom= () => {
   const handleVerify = () => {
     const enteredOTP = otp.join("");
     if (enteredOTP.length < 4) {
-     toast.error("Please enter 4 digit")
+      toast.error("Please enter 4 digit")
       return;
     }
-     
-      axios.post('http://localhost:8000/api/auth/verify-otp', {enteredOTP, email})
+
+    axios.post('http://localhost:8000/api/auth/verify-otp', { enteredOTP, email })
       .then((res => {
         console.log("respaonse :", res.data)
-        if(res?.data?.error){
-            toast.error(res?.data?.error);
+        if (res?.data?.error) {
+          toast.error(res?.data?.error);
         }
-        if(res?.data?.message){
-            toast.success(res?.data?.message);
+        if (res?.data?.message) {
+          toast.success(res?.data?.message);
         }
-
-        console.log(res)
-
       }))
+      .catch((error) => {
+        toast.error("Verification failed. Please try again.");
+      });
+
   };
 
   const handleResendOTP = () => {
     setOtp(["", "", "", ""]);
     setTimer(60);
     setIsResendDisabled(true);
+
+    axios
+      .post("http://localhost:8000/api/auth/resend-otp", { email })
+      .then((res) => {
+        if (res?.data?.error) {
+          toast.error(res?.data?.error);
+        } else {
+          toast.success(res?.data?.message || "New OTP sent successfully.");
+        }
+      })
+      .catch((error) => {
+        toast.error("Failed to resend OTP. Please try again.");
+        setIsResendDisabled(false);
+      });
   };
 
   return (
@@ -96,7 +112,7 @@ const OtpFrom= () => {
         <p className="text-danger mt-2">
           {timer > 0
             ? `Resend OTP in 00:${timer < 10 ? `0${timer}` : timer}`
-            : "You can resend now!"}
+            : "Time out!"}
         </p>
 
         <button

@@ -3,13 +3,9 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
-import OtpForm from './components/otpForm';
+import OtpForm from './components/OtpForm';
 import Forgot from './components/Forgot';
 import AddPlace from './components/AddPlace';
-
-
-
-
 
 function App() {
 

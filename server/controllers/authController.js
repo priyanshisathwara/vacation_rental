@@ -90,3 +90,52 @@ export const sendResetPasswordMail = async (req, res) => {
   });
   
 }
+
+export const resendResetPasswordMail = async (req, res) => {
+  const email = req.body.email;
+
+  // Check if the email exists in the database and fetch the existing OTP details
+  const sqlSelect = "SELECT otp_expire FROM register WHERE email = ?";
+  
+  db.query(sqlSelect, [email], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database error", details: err.message });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Email not found" });
+    }
+
+    const otpExpireTime = results[0].otp_expire;
+    const currentTime = new Date();
+
+    // Check if the previous OTP is still valid (e.g., allow resending after 30 seconds)
+    if (otpExpireTime && currentTime < new Date(otpExpireTime) - 30 * 1000) {
+      return res.status(429).json({ error: "Please wait before requesting a new OTP." });
+    }
+
+    // Generate a new OTP
+    const newOtp = Math.floor(1000 + Math.random() * 9000);
+    const newOtpExpire = new Date(Date.now() + 60 * 1000); // OTP expires in 1 minute
+
+    // Update the database with the new OTP
+    const sqlUpdate = "UPDATE register SET otp = ?, otp_expire = ? WHERE email = ?";
+    
+    db.query(sqlUpdate, [newOtp, newOtpExpire, email], (updateErr) => {
+      if (updateErr) {
+        return res.status(500).json({ error: "Database update error", details: updateErr.message });
+      }
+
+      // Send the new OTP via email
+      const mail = new Mail();
+      mail.setTo(email);
+      mail.setSubject("Resend OTP for Password Reset");
+      mail.setText(`Your new OTP is: ${newOtp}`);
+      mail.send();
+
+      return res.status(200).json({ message: "New OTP sent successfully!" });
+    });
+  });
+};
+
+
