@@ -139,3 +139,37 @@ export const resendResetPasswordMail = async (req, res) => {
 };
 
 
+
+
+export const resetPassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const sql = "SELECT * FROM register WHERE email = ?";
+  db.query(sql, [email], async (err, results) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(400).json({ message: "Email not registered" });
+    }
+
+    // Hash the new password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updateSql = "UPDATE register SET password = ? WHERE email = ?";
+    db.query(updateSql, [hashedPassword, email], (err, updateResult) => {
+      if (err) {
+        console.error("Failed to update password:", err);
+        return res.status(500).json({ message: "Failed to update password" });
+      }
+
+      return res.status(200).json({ status: "Success", message: "Password reset successfully" });
+    });
+  });
+};

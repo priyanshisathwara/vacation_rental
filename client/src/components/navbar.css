@@ -3,6 +3,7 @@
   background: linear-gradient(to right, #02005bee, #363985);
   padding: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #fefefe;
 }
 
 .container {
@@ -13,11 +14,30 @@
   margin: 0 auto;
 }
 
-.logo {
+/* .logo {
   font-family: "Pacifico", cursive;
   color: white;
   font-size: 24px;
   font-weight:bold;
+} */
+
+.logo {
+  font-size: 26px;
+  font-family: "Pacifico", cursive;
+  color: #fff;
+  text-align: center;
+  animation: logo 1s ease-in-out infinite alternate;
+}
+
+@keyframes logo { /* Now this matches the animation name */
+  from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #6a11cb, 
+                   0 0 40px #6a11cb, 0 0 50px #6a11cb, 0 0 60px #6a11cb, 0 0 70px #6a11cb;
+  }
+  to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #2575fc, 0 0 40px #2575fc, 
+                   0 0 50px #2575fc, 0 0 60px #2575fc, 0 0 70px #2575fc, 0 0 80px #2575fc;
+  }
 }
 
 .nav-links {

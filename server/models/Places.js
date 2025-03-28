@@ -53,11 +53,23 @@ export const createPlace = (req, res) => {
                     averagePrice
                 });
         });
-
     });
-
     } catch (error) {
         console.error("Error adding place:", error);
         
     }
 };
+
+
+export const getPlaces = (req, res) => {
+    const sqlGetPlaces = "SELECT * FROM places ORDER BY created_at DESC";
+
+    db.query(sqlGetPlaces, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Error fetching places", details: err.message });
+        }
+
+        return res.status(200).json(results);
+    });
+};
+

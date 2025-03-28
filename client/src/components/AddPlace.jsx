@@ -48,66 +48,67 @@ export default function AddPlace() {
 
 
   return (
-    <div className="form-container">
-      <h2>Add Place</h2>
-      <form onSubmit={handleSubmit} className="place-form">
-        <div className="form-group">
-          <label htmlFor="place_name">Place Name</label>
-          <input
-            type="text"
-            id="place_name"
-            name="place_name"
-            value={formData.place_name}
-            onChange={handleChange}
-            placeholder="Enter the place name"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Enter the location"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            placeholder="Enter the price"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="owner_name">Owner Name</label>
-          <input
-            type="text"
-            id="owner_name"
-            name="owner_name"
-            value={formData.owner_name}
-            onChange={handleChange}
-            placeholder="Enter the owner's name"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="city">City</label>
-          <select
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          >
+    <div className="add-place-page">
+      <div className="form-container">
+        <h2>Add Place</h2>
+        <form onSubmit={handleSubmit} className="place-form">
+          <div className="form-group">
+            <label htmlFor="place_name">Place Name</label>
+            <input
+              type="text"
+              id="place_name"
+              name="place_name"
+              value={formData.place_name}
+              onChange={handleChange}
+              placeholder="Enter the place name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="Enter the location"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Enter the price"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="owner_name">Owner Name</label>
+            <input
+              type="text"
+              id="owner_name"
+              name="owner_name"
+              value={formData.owner_name}
+              onChange={handleChange}
+              placeholder="Enter the owner's name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="city">City</label>
+            <select
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select City</option>
               <option value="Ahmedabad">Ahmedabad</option>
               <option value="Surat">Surat</option>
@@ -129,11 +130,12 @@ export default function AddPlace() {
               <option value="Patan">Patan</option>
               <option value="Dahod">Dahod</option>
               <option value="Amreli">Amreli</option>
-          </select>
-        </div>
-        <button type="submit" className="submit-button">Submit</button>
-      </form>
-      <ToastContainer />
+            </select>
+          </div>
+          <button type="submit" className="submit-button">Submit</button>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Validation from './SignupValidation';
 import { ToastContainer, toast } from 'react-toastify';
+import "./Signup.css";
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -33,61 +34,72 @@ export default function Signup() {
 
 
     return (
-        <>
-            <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
-                <div className='bg-white p-3 rounded w-25'>
-                    <h2>Register</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className='mb-3'>
-                            <label htmlFor='name'>
-                                <strong>Name</strong>
-                            </label>
-                            <input type='text' placeholder='Enter Name' autoComplete='off' name='name' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setName(e.target.value)
-                                    setErrors(prev => ({ ...prev, name: "" }))
-                                    let error1 = Validation("checkName", { name: e.target.value, email, password })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.name && <span className="text-danger">{errors.name}</span>}
-                        </div>
-
-                        <div className='mb-3'>
-                            <label htmlFor='email'>
-                                <strong>Email</strong>
-                            </label>
-                            <input type='text' placeholder='Enter email' autoComplete='off' name='email' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setEmail(e.target.value)
-                                    setErrors(prev => ({ ...prev, email: "" }))
-                                    let error1 = Validation("checkEmail", { name, email: e.target.value, password })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.email && <span className="text-danger">{errors.email}</span>}
-                        </div>
-
-                        <div className='mb-3'>
-                            <label htmlFor='password'>
-                                <strong>Password</strong>
-                            </label>
-                            <input type='password' placeholder='Enter password' autoComplete='off' name='password' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setPassword(e.target.value)
-                                    setErrors(prev => ({ ...prev, password: "" }))
-                                    let error1 = Validation("checkPassword", { name, email, password: e.target.value })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.password && <span className="text-danger">{errors.password}</span>}
-                        </div>
-                        <button type='submit' className='btn btn-success w-100 rounded-0'>Register</button>
-                    </form>
-                    <p>Already Have an Account?</p>
-                    <Link to="/login" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Login</Link>
-
-
+        <div className="register-page">
+        <div className="register-container">
+            <h2>Register</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name"><strong>Name</strong></label>
+                    <input
+                        type="text"
+                        placeholder="Enter Name"
+                        autoComplete="off"
+                        name="name"
+                        value={name}
+                        onChange={(e) => {
+                            setName(e.target.value);
+                            setErrors((prev) => ({ ...prev, name: "" }));
+                            let error1 = Validation("checkName", { name: e.target.value, email, password });
+                            setErrors(error1);
+                        }}
+                    />
+                    {errors?.name && <span className="error">{errors.name}</span>}
                 </div>
-            </div>
-            <ToastContainer />
-        </>
-    )
-}
+
+                <div className="form-group">
+                    <label htmlFor="email"><strong>Email</strong></label>
+                    <input
+                        type="text"
+                        placeholder="Enter Email"
+                        autoComplete="off"
+                        name="email"
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            setErrors((prev) => ({ ...prev, email: "" }));
+                            let error1 = Validation("checkEmail", { name, email: e.target.value, password });
+                            setErrors(error1);
+                        }}
+                    />
+                    {errors?.email && <span className="error">{errors.email}</span>}
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="password"><strong>Password</strong></label>
+                    <input
+                        type="password"
+                        placeholder="Enter Password"
+                        autoComplete="off"
+                        name="password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setErrors((prev) => ({ ...prev, password: "" }));
+                            let error1 = Validation("checkPassword", { name, email, password: e.target.value });
+                            setErrors(error1);
+                        }}
+                    />
+                    {errors?.password && <span className="error">{errors.password}</span>}
+                </div>
+
+                <button type="submit" className="register-btn">Register</button>
+            </form>
+            
+            <p>Already Have an Account?</p>
+            <Link to="/login" className="login-btn">Login</Link>
+        </div>
+        <ToastContainer />
+    </div>
+);
+};
+

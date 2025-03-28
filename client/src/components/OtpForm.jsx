@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const OtpFrom = () => {
@@ -10,6 +10,8 @@ const OtpFrom = () => {
   const [timer, setTimer] = useState(60);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const { email } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let interval;
@@ -51,6 +53,7 @@ const OtpFrom = () => {
         }
         if (res?.data?.message) {
           toast.success(res?.data?.message);
+          setTimeout(() => navigate("/reset-password-form"), 1000);
         }
       }))
       .catch((error) => {

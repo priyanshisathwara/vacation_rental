@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import './ForgotPassword.css';
 
 function Forgot() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Forgot() {
 
         setErrors({});
 
-        axios.post('http://localhost:8000/api/auth/reset-password', {email })
+        axios.post('http://localhost:8000/api/auth/reset-password', { email })
             .then(result => {
                 console.log(result)
                 toast.success('OTP sended Successfully');
@@ -31,28 +32,23 @@ function Forgot() {
 
 
     return (
-        <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-            <div className="bg-white p-3 rounded w-25">
+        <div className="forgot-password-page">
+            <div className="forgot-password-container">
                 <h2>Forgot Password</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="email">
-                            <strong>Email</strong>
-                        </label>
+                    <div className="form-group">
+                        <label htmlFor="email"><strong>Email</strong></label>
                         <input
                             type="email"
                             placeholder="Enter email"
                             autoComplete="off"
                             name="email"
-                            className="form-control rounded-0"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        {errors.email && <span className="text-danger">{errors.email}</span>}
+                        {errors.email && <span className="error">{errors.email}</span>}
                     </div>
-                    <button type="submit" className="btn btn-success w-100 rounded-0">
-                        Send
-                    </button>
+                    <button type="submit" className="send-btn">Send</button>
                 </form>
             </div>
             <ToastContainer />

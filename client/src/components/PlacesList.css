@@ -1,0 +1,112 @@
+/* Apply styles only inside the .places-list-page */
+.places-list-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 50px;
+    background: linear-gradient(135deg, #b2c1f1, #d4e3f1);
+    font-family: 'Poppins', sans-serif;
+}
+
+.places-list-page .container {
+    padding: 40px;
+    width: 100%;
+}
+
+.places-list-page .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start; /* Align items to the left */
+    gap: 25px;
+    width: 100%;
+}
+
+.places-list-page .card {
+    background: linear-gradient(135deg, #9861af, #6cb0de); /* Vibrant purple-blue gradient */
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    width: 300px; /* Fixed width for uniform cards */
+}
+
+.places-list-page .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.places-list-page .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.places-list-page .card-content {
+    padding: 20px;
+}
+
+.places-list-page .card h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.places-list-page .card p {
+    font-size: 14px;
+    color: #dfe9f3; /* Light soft text */
+    margin-bottom: 10px;
+}
+
+.places-list-page .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00; /* Bright yellow accent */
+    margin-bottom: 10px;
+}
+
+.places-list-page .buttons {
+    margin-top: 10px;
+}
+
+.places-list-page button {
+    padding: 10px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out, transform 0.2s;
+}
+
+.places-list-page button:hover {
+    transform: scale(1.05);
+}
+
+.places-list-page .add-to-cart {
+    background: #fff;
+    color: #2575fc;
+}
+
+.places-list-page .add-to-cart:hover {
+    background: #ffcc00;
+    color: #2c3e50;
+}
+
+.places-list-page .view-details {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.places-list-page .view-details:hover {
+    background: white;
+    color: #2575fc;
+}

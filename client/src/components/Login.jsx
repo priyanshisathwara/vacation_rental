@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import Validation from './LoginValidation';
 import { ToastContainer, toast } from 'react-toastify';
+import './Login.css';
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -41,50 +42,46 @@ function Login() {
 
     return (
         <>
-            <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
-                <div className='bg-white p-3 rounded w-25'>
-                    <h2>Login</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className='mb-3'>
-                            <label htmlFor='email'>
-                                <strong>Email</strong>
-                            </label>
-                            <input
-                                type='text'
-                                placeholder='Enter email'
-                                autoComplete='off'
-                                name='email'
-                                className='form-control rounded-0'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            {errors.email && <span className="text-danger">{errors.email}</span>}
-                        </div>
+           <div className="login-page">
+            <div className="login-container">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email"><strong>Email</strong></label>
+                        <input
+                            type="text"
+                            placeholder="Enter email"
+                            autoComplete="off"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        {errors.email && <span className="error">{errors.email}</span>}
+                    </div>
 
-                        <div className='mb-3'>
-                            <label htmlFor='password'>
-                                <strong>Password</strong>
-                            </label>
-                            <input
-                                type='password'
-                                placeholder='Enter password'
-                                autoComplete='off'
-                                name='password'
-                                className='form-control rounded-0'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            {errors.password && <span className="text-danger">{errors.password}</span>}
-                        </div>
-                    <Link to="/forgot" className="d-flex justify-content-end text-success text-decoration-none small">Forgot Password?</Link>
-        
-                        <button type='submit' className='btn btn-success w-100 rounded-0'>Login</button>
-                    </form>
-                    <p>Don't Have an Account?</p>
-                    <Link to="/register" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Register</Link>
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="password"><strong>Password</strong></label>
+                        <input
+                            type="password"
+                            placeholder="Enter password"
+                            autoComplete="off"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {errors.password && <span className="error">{errors.password}</span>}
+                    </div>
+
+                    <Link to="/forgot" className="forgot-password">Forgot Password?</Link>
+
+                    <button type="submit" className="login-btn">Login</button>
+                </form>
+
+                <p>Don't Have an Account?</p>
+                <Link to="/register" className="register-btn">Register</Link>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
+        </div>
         </>
     );
 }

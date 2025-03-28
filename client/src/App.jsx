@@ -6,6 +6,8 @@ import Home from './components/Home';
 import OtpForm from './components/OtpForm';
 import Forgot from './components/Forgot';
 import AddPlace from './components/AddPlace';
+import ResetPassword from './components/ResetPassword';
+import PlacesList from './components/PlacesList';
 
 function App() {
 
@@ -18,6 +20,9 @@ function App() {
     <Route path='/forgot' element={<Forgot />}/>
     <Route path='/otp-form/:email' element={<OtpForm />}/>
     <Route path='/add-places' element={<AddPlace />}/>
+    <Route path='/reset-password-form' element={<ResetPassword />}/>
+    <Route path='/places' element={<PlacesList />}/>
+
    
    </Routes>
    </BrowserRouter>
