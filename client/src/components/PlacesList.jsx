@@ -7,6 +7,7 @@ const PlacesList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    places ['abc'];
     useEffect(() => {
         axios.get("http://localhost:8000/api/admin/places") // Adjust API URL if needed
             .then((response) => {
@@ -29,6 +30,7 @@ const PlacesList = () => {
             <div className="grid">
                 {places.map((place) => (
                     <div key={place.id} className="card">
+                        <img src={`http://localhost:8000/uploads/${place.image}`} alt="" />
                         <h3>{place.place_name}</h3>
                         <p><strong>Location:</strong> {place.location}</p>
                         <p><strong>City:</strong> {place.city}</p>

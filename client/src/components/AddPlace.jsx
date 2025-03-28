@@ -4,12 +4,14 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function AddPlace() {
+  const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     place_name: '',
     location: '',
     price: '',
     owner_name: '',
-    city: ''
+    city: '',
+    image: null
   });
 
   const handleChange = (e) => {
@@ -20,16 +22,50 @@ export default function AddPlace() {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);  // ✅ Update state with selected file
+      console.log("Selected File:", file); // ✅ Debugging
+    } else {
+      console.error("No file selected.");
+    }
+  };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data before sending:", formData);
+
+    if (!imageFile) {
+      console.error("No image file selected.");
+      toast.error("Please upload an image.");
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("place_name", formData.place_name);
+    formDataToSend.append("location", formData.location);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("owner_name", formData.owner_name);
+    formDataToSend.append("city", formData.city);
+    formDataToSend.append("image", imageFile);
+
+    console.log("Submitting Form Data:", formDataToSend);
+
+    for (let pair of formDataToSend.entries()) {
+      console.log(pair[0] + ": ", pair[1]);
+    }
+
 
     try {
-      const response = await axios.post('http://localhost:8000/api/admin/create-place', formData);
+      const response = await axios.post('http://localhost:8000/api/admin/create-place', formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       if (response.status === 201) {
         toast.success("Place added successfully!");
-        setFormData({ place_name: '', location: '', price: '', owner_name: '', city: '' }); // Reset form
+        setFormData({ place_name: '', location: '', price: '', owner_name: '', city: '', image: null }); // Reset form
       }
 
     } catch (error) {
@@ -132,6 +168,18 @@ export default function AddPlace() {
               <option value="Amreli">Amreli</option>
             </select>
           </div>
+
+          <div className="form-group">
+            <label htmlFor="image">Upload Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+
+
+          </div>
+
           <button type="submit" className="submit-button">Submit</button>
         </form>
         <ToastContainer />
