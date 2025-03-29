@@ -14,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/uploads", express.static("uploads"));
+
 // ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes)
@@ -21,11 +23,11 @@ app.use("/api/admin", adminRoutes)
 app.get("/",  (req, res) => {
   res.send("Hello");
 
-  const mail = new Mail();
-  mail.setTo(process.env.TO_EMAIL);
-  mail.setSubject('Subject');
-  mail.setText('hello form VR ${otp}')
-  mail.send()
+  // const mail = new Mail();
+  // mail.setTo(process.env.TO_EMAIL);
+  // mail.setSubject('Subject');
+  // mail.setText('hello form VR ${otp}')
+  // mail.send()
 });
 
 // ✅ Start Server
