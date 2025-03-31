@@ -1,12 +1,13 @@
 .home-container {
-  min-height: 100vh;
+  background-image: url('/src/assets/temp.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh; /* Full screen height */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding-left: 50px;
-  background: linear-gradient(135deg, #b2c1f1, #d4e3f1);
-  font-family: 'Poppins', sans-serif;
+  align-items: center;
+  color: white; 
   }
 
   .search-box {

@@ -8,6 +8,7 @@ import Forgot from './components/Forgot';
 import AddPlace from './components/AddPlace';
 import ResetPassword from './components/ResetPassword';
 import PlacesList from './components/PlacesList';
+import AboutUs from './components/AboutUs';
 
 function App() {
 
@@ -22,7 +23,9 @@ function App() {
     <Route path='/add-places' element={<AddPlace />}/>
     <Route path='/reset-password-form' element={<ResetPassword />}/>
     <Route path='/places' element={<PlacesList />}/>
+    <Route path='/about-us' element={<AboutUs />}/>
 
+    
    
    </Routes>
    </BrowserRouter>

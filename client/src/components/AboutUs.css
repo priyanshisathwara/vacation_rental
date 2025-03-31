@@ -1,0 +1,192 @@
+/* AboutUs.css */
+@import url('https://fonts.googleapis.com/css2?family=Meow+Script&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Send+Flowers&display=swap');
+
+/* Flexbox layout for left and right containers */
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.left-container {
+    flex: 1;
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    justify-content: center;
+    /* Center content vertically */
+    align-items: center;
+    /* Center content horizontally */
+    text-align: center;
+    /* Ensure text is centered */
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    overflow: hidden;
+    background-image: url('/src/assets/about-us.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.left-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
+    z-index: 0;
+}
+
+.left-container * {
+    position: relative;
+    z-index: 1;
+    /* Ensures content stays above the overlay */
+}
+
+/* Styling for title and subtitle */
+.about-title {
+    font-size: 4.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.about-subtitle {
+    max-width: 70%;
+    font-family: "Meow Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.2rem;
+    color: #f0ebeb;
+    margin-bottom: 20px;
+    /* Limit text width for better readability */
+}
+
+.text-highlight {
+    color: #FFD700;
+    /* Gold color for highlight effect */
+    font-weight: bold;
+}
+
+
+
+.right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.row-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 2rem; /* Space between columns */
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+.cloumn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling image container */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    max-width: 400px; /* Adjust image size */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .row-container {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    .image-container img {
+        max-width: 100%; /* Image adapts to full width */
+    }
+}
+
+
+/* About section styling */
+.about-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.about-section p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Styling the list */
+.about-list {
+    list-style: none;
+    padding: 0;
+}
+
+.about-list li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.about-list li strong {
+    margin-left: 5px;
+}
+
+/* About grid section */
+.about-grid p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* CTA Section */
+.about-cta {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #555;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.about-cta h2{
+    color: #333;
+}
+
+.text-highlight {
+    color: #397d77;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .row-container {
+        grid-template-columns: 1fr; /* Change to single column on smaller screens */
+    }
+}

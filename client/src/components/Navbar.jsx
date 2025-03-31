@@ -1,36 +1,53 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import "./navbar.css"; // Ensure your CSS file is linked
+import { useState } from "react";
+import { IoMdArrowDropdown } from "react-icons/io";
+import "./Navbar.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   return (
-    <>
+    
     <nav className="navbar">
-    <div className="container">
-        <div className="nav-left">
-          <h1 className="logo">Vacation Rental</h1>
-        </div>
-        <div className="nav-center">
-          <ul className="nav-links">
-            <li>
-              <Link to="/" className="nav-item">Home</Link>
-            </li>
-            <li>
-              <Link to="/about" className="nav-item">About</Link>
-            </li>
-            <li>
-              <Link to="/services" className="nav-item">Services</Link>
-            </li>
-            <li>
-              <Link to="/contact" className="nav-item">Contact</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="nav-right">
-          <Link to="/register" className="signup-button">SignUp</Link>
-        </div>
+      {/* Logo */}
+      <div className="logo">
+        <span className="black-text">Vacation</span>
+        <span className="blue-text">Rental.</span>
+      </div>
+
+      {/* Navigation Links */}
+      <div className="nav-link-detail">
+      <ul className="nav-links">
+        <a href="/"> <li className="active">Home</li></a>
+        <Link to="/about-us">About Us</Link>
+
+        <li
+          className="dropdown"
+          onMouseEnter={() => setDropdownOpen(true)}
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          Destinations <IoMdArrowDropdown className="dropdown-icon" />
+          {dropdownOpen && (
+            <ul className="dropdown-menu">
+              <li><a href="/destinations/beach">Beach Resorts</a></li>
+              <li><a href="/destinations/mountain">Mountain Cabins</a></li>
+              <li><a href="/destinations/city">City Apartments</a></li>
+            </ul>
+          )}
+        </li>
+
+        <a href="/experiences"><li>Experiences</li></a>
+        <a href="/blog"><li>Blog</li></a>
+        <a href="/faqs"><li>FAQs</li></a>
+      </ul>
+      </div>
+
+      {/* Register Button */}
+      <div className="nav-actions">
+      <button className="register-btn" onClick={() => navigate("/register")}>
+        Register
+      </button>
       </div>
     </nav>
-    </>
   );
 }

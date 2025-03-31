@@ -27,6 +27,7 @@ export default function Signup() {
             .then(result => {
                 console.log(result)
                 toast.success('Register Successfully');
+                localStorage.setItem("user", JSON.stringify(result.data.user));
                 setTimeout(() => navigate("/"), 1000);
             })
             .catch(err => console.log(err))
