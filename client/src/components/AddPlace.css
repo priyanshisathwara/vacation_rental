@@ -5,7 +5,7 @@
     justify-content: center;
     height: 100vh;  /* Full viewport height */
     width: 100%;    /* Ensure it covers the entire width */
-    background: linear-gradient(135deg, #b2c1f1, #d4e3f1);
+    background-color: #f3eded;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -58,7 +58,7 @@
 .add-place-page .submit-button {
     display: inline-block;
     padding: 10px 20px;
-    background: linear-gradient(to right, #4f62ee, #836cf7);
+    background: rgb(21, 120, 150);
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -70,7 +70,8 @@
 
 .add-place-page .submit-button:hover {
     /* transform: scale(1.05); */
-    background: linear-gradient(to right, #836cf7, #4f62ee);
+    background: rgba(21, 120, 150, 0.763);
+
 }
 
 .add-place-page .message {

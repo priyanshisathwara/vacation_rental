@@ -35,69 +35,63 @@ export default function Signup() {
 
 
     return (
-        <div className="register-page">
-        <div className="register-container">
-            <h2>Register</h2>
+        <div className="register-page-container">
+        <div className="register-box">
+            <h2 className="register-title">Register</h2>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name"><strong>Name</strong></label>
+                <div className="register-form-group">
+                    <label><strong>Name</strong></label>
                     <input
                         type="text"
                         placeholder="Enter Name"
                         autoComplete="off"
-                        name="name"
+                        className="register-input"
                         value={name}
                         onChange={(e) => {
                             setName(e.target.value);
                             setErrors((prev) => ({ ...prev, name: "" }));
-                            let error1 = Validation("checkName", { name: e.target.value, email, password });
-                            setErrors(error1);
                         }}
                     />
-                    {errors?.name && <span className="error">{errors.name}</span>}
+                    {errors?.name && <span className="register-error">{errors.name}</span>}
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="email"><strong>Email</strong></label>
+                <div className="register-form-group">
+                    <label><strong>Email</strong></label>
                     <input
                         type="text"
                         placeholder="Enter Email"
                         autoComplete="off"
-                        name="email"
+                        className="register-input"
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value);
                             setErrors((prev) => ({ ...prev, email: "" }));
-                            let error1 = Validation("checkEmail", { name, email: e.target.value, password });
-                            setErrors(error1);
                         }}
                     />
-                    {errors?.email && <span className="error">{errors.email}</span>}
+                    {errors?.email && <span className="register-error">{errors.email}</span>}
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="password"><strong>Password</strong></label>
+                <div className="register-form-group">
+                    <label><strong>Password</strong></label>
                     <input
                         type="password"
                         placeholder="Enter Password"
                         autoComplete="off"
-                        name="password"
+                        className="register-input"
                         value={password}
                         onChange={(e) => {
                             setPassword(e.target.value);
                             setErrors((prev) => ({ ...prev, password: "" }));
-                            let error1 = Validation("checkPassword", { name, email, password: e.target.value });
-                            setErrors(error1);
                         }}
                     />
-                    {errors?.password && <span className="error">{errors.password}</span>}
+                    {errors?.password && <span className="register-error">{errors.password}</span>}
                 </div>
 
                 <button type="submit" className="register-btn">Register</button>
             </form>
-            
-            <p>Already Have an Account?</p>
-            <Link to="/login" className="login-btn">Login</Link>
+
+            <p className="register-login-text">Already Have an Account?</p>
+            <Link to="/login" className="register-login-btn">Login</Link>
         </div>
         <ToastContainer />
     </div>

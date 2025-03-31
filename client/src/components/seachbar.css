@@ -1,0 +1,87 @@
+/* Container Styling */
+.search-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    position: relative;
+}
+
+/* Search Input Container */
+.search-input-div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #f3eded;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Field */
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+    background: transparent;
+}
+
+/* Search Icon */
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+    color: #f9f1f1;
+    background-color: #247b97;
+    border-radius: 50%;
+    width: 32px;  /* Optional: Set width */
+    height: 32px; 
+}
+
+
+
+/* Search Results Dropdown */
+.search-result {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 10;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Show results when there's data */
+.search-section:hover .search-result {
+    display: block;
+}
+
+/* Search Result Item */
+.search-suggestion-line {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover Effect on Result Items */
+.search-suggestion-line:hover {
+    background: rgb(227, 227, 227);
+}
+
+.search-suggestion-line.active {
+    background: #f0f0f0;
+}

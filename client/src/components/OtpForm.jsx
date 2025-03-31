@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import styles from "./OTP.module.css"; 
 
 
 const OtpFrom = () => {
@@ -83,52 +83,42 @@ const OtpFrom = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card p-4 shadow-lg text-center" style={{ width: "350px" }}>
-        <h3 className="mb-3">Enter OTP </h3>
+    <div className={styles.otpContainer}>
+    <div className={styles.otpCard}>
+        <h3 className={styles.otpTitle}>Enter OTP</h3>
 
-        <div className="d-flex justify-content-center gap-2">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              id={`otp-${index}`}
-              type="text"
-              value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
-              maxLength={1}
-              className="form-control text-center otp-box"
-              style={{
-                width: "50px",
-                height: "50px",
-                fontSize: "1.5rem",
-                borderRadius: "8px",
-                border: "2px solid #007bff",
-              }}
-            />
-          ))}
+        <div className={styles.otpInputContainer}>
+            {otp.map((digit, index) => (
+                <input
+                    key={index}
+                    id={`otp-${index}`}
+                    type="text"
+                    value={digit}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    maxLength={1}
+                    className={styles.otpBox}
+                />
+            ))}
         </div>
 
-        <button onClick={handleVerify} className="btn btn-primary mt-3 w-100">
-          Verify OTP
-        </button>
+        <button onClick={handleVerify} className={styles.otpBtn}>Verify OTP</button>
 
-        <p className="text-danger mt-2">
-          {timer > 0
-            ? `Resend OTP in 00:${timer < 10 ? `0${timer}` : timer}`
-            : "Time out!"}
+        <p className={styles.otpTimer}>
+            {timer > 0
+                ? `Resend OTP in 00:${timer < 10 ? `0${timer}` : timer}`
+                : "Time out!"}
         </p>
 
         <button
-          onClick={handleResendOTP}
-          className="btn btn-secondary w-100"
-          disabled={isResendDisabled}
+            onClick={handleResendOTP}
+            className={styles.otpResendBtn}
+            disabled={isResendDisabled}
         >
-          Resend OTP
+            Resend OTP
         </button>
-        <ToastContainer />
-
-      </div>
+        <ToastContainer /> 
     </div>
+</div>
   );
 };
 

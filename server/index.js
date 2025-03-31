@@ -20,6 +20,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes)
 
+
 app.get("/",  (req, res) => {
   res.send("Hello");
 

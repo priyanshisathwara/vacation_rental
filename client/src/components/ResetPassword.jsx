@@ -3,18 +3,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./ResetPassword.css";  // ✅ Import Scoped CSS
 
 function ResetPassword() {
-    const [email, setEmail] = useState("");      // ✅ Email state
-    const [otp, setOtp] = useState("");          // ✅ OTP state
-    const [password, setPassword] = useState(""); // ✅ Password state
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
-            toast.error("Please fill in all fields."); // ✅ Frontend validation
+            toast.error("Please fill in all fields.");
             return;
         }
 
@@ -30,7 +30,6 @@ function ResetPassword() {
             } else {
                 toast.error(response.data.message || "Failed to reset password.");
             }
-
         } catch (error) {
             console.error(error);
             toast.error(error.response?.data?.message || "An error occurred. Please try again.");
@@ -38,36 +37,35 @@ function ResetPassword() {
     };
 
     return (
-        <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
-            <div className='bg-white p-4 rounded w-25'>
-                <h3 className="text-center mb-3">Reset Password</h3>
+        <div className="reset-password-container">
+            <div className="reset-password-box">
+                <h3 className="reset-password-title">Reset Password</h3>
                 <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor='email'><strong>Email</strong></label>
+                    <div className="reset-password-form-group">
+                        <label>Email</label>
                         <input
-                            type='email'
-                            placeholder='Enter your email'
-                            className='form-control rounded-0'
+                            type="email"
+                            placeholder="Enter your email"
+                            className="reset-password-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
 
-
-                    <div className='mb-3'>
-                        <label htmlFor='password'><strong>New Password</strong></label>
+                    <div className="reset-password-form-group">
+                        <label>New Password</label>
                         <input
-                            type='password'
-                            placeholder='Enter new password'
-                            className='form-control rounded-0'
+                            type="password"
+                            placeholder="Enter new password"
+                            className="reset-password-input"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
 
-                    <button type='submit' className='btn btn-success w-100 rounded-0'>Update Password</button>
+                    <button type="submit" className="reset-password-btn">Update Password</button>
                 </form>
             </div>
         </div>

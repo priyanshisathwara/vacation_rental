@@ -3,6 +3,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin-top: 23px;
   height: 90vh; /* Full screen height */
   display: flex;
   justify-content: center;
@@ -10,11 +11,12 @@
   color: white; 
   }
 
-  .search-box {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+
+  .search-bar-container {
+    margin-top: 45px;  /* Adjust vertical spacing */
+    position: absolute;
+    top: 50px;  /* Adjust the distance from the top */
+    left: 50%;
+    transform: translateX(-50%);  /* Center the search bar */
+    width: 50%; /* Adjust width */
+}

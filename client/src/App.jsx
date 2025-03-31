@@ -9,6 +9,8 @@ import AddPlace from './components/AddPlace';
 import ResetPassword from './components/ResetPassword';
 import PlacesList from './components/PlacesList';
 import AboutUs from './components/AboutUs';
+import SearchBar from './components/SearchBar';
+import CityResult from './components/CityResults';
 
 function App() {
 
@@ -24,6 +26,11 @@ function App() {
     <Route path='/reset-password-form' element={<ResetPassword />}/>
     <Route path='/places' element={<PlacesList />}/>
     <Route path='/about-us' element={<AboutUs />}/>
+    <Route path='/search' element={<SearchBar />}/>
+    <Route path="/places/:id" element={<CityResult />} />
+    <Route path="/places/name/:ciy" element={<CityResult />} />
+
+
 
     
    

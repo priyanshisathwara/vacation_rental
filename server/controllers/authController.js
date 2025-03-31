@@ -173,3 +173,45 @@ export const resetPassword = async (req, res) => {
     });
   });
 };
+
+export const searchData = async (req, res) => {
+  const { query } = req.body;
+  if (!query) return res.json([]); // Always return an array
+
+  const sql = "SELECT * FROM places WHERE LOWER(city) LIKE ?"; // Search by city
+  const searchValue = `%${query.toLowerCase()}%`;
+
+  db.query(sql, [searchValue], (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: "Database query failed", details: err.message });
+      } // ✅ Log query results
+        return res.status(200).json(results || []);
+  });
+};
+
+export const cityResult = async (req, res) => {
+  const { id, city } = req.params;  
+
+  let sql;
+  let queryParam;
+
+  if (id) {
+      sql = "SELECT * FROM places WHERE id = ?";
+      queryParam = [id];
+  } else if (city) {
+      sql = "SELECT * FROM places WHERE city LIKE ?";
+      queryParam = [`%${city}%`];
+  } else {
+      return res.status(400).json({ error: "Invalid request. Please provide an ID or city name." });
+  }
+
+  db.query(sql, queryParam, (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: "Database query failed", details: err.message });
+      }
+      if (results.length === 0) {
+          return res.status(404).json({ message: "No data found for the given criteria." });
+      }
+      return res.status(200).json(results);
+  });
+};

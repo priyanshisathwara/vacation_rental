@@ -30,15 +30,23 @@ const PlacesList = () => {
             <div className="grid">
                 {places.map((place) => (
                     <div key={place.id} className="card">
-                        <img src={`http://localhost:8000/uploads/${place.image}`} alt="" />
-                        <h3>{place.place_name}</h3>
-                        <p><strong>Location:</strong> {place.location}</p>
-                        <p><strong>City:</strong> {place.city}</p>
-                        <p><strong>Price:</strong> ₹{place.price}</p>
-                        <p><strong>Owner:</strong> {place.owner_name}</p>
-                        <p className="date">
-                            Added on: {new Date(place.created_at).toLocaleDateString()}
-                        </p>
+                        <img 
+                            src={`http://localhost:8000/uploads/${place.image}`} 
+                            alt={place.place_name} 
+                            className="card-image"
+                        />
+                        <div className="card-content">
+                            <h3 className="card-title">{place.place_name}</h3>
+                            <p className="card-text"><strong>Location :</strong> {place.location}</p>
+                            <p className="card-text"><strong>City :</strong> {place.city}</p>
+                            <p className="card-price"><strong>Price :</strong> ₹{place.price} / Person</p>
+                            <p className="card-text"><strong>Owner:</strong> {place.owner_name}</p>
+                            <p className="card-date">Added on: {new Date(place.created_at).toLocaleDateString()}</p>
+                            <div className="card-buttons">
+                                <button className="book-now-btn">Book Now</button>
+                                <button className="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>

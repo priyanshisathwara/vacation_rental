@@ -1,38 +1,40 @@
-/* Register Page */
-.register-page {
-    min-height: 100vh;
+/* Register.css - Scoped Styles */
+.register-page-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding-left: 50px;
-    background: linear-gradient(135deg, #b2c1f1, #d4e3f1);
-    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3eded;
 }
 
-/* Container */
-.register-container {
-    background: #fefefe;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+.register-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: center;
 }
 
-/* Form Input Fields */
-.form-group {
+.register-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+.register-form-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
-.form-group label {
+.register-form-group label {
+    font-weight: bold;
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    color: #555;
 }
 
-.form-group input {
+.register-input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -40,39 +42,51 @@
     font-size: 16px;
 }
 
-/* Error Message */
-.error {
+.register-error {
     color: red;
     font-size: 14px;
+    margin-top: 5px;
+    display: block;
 }
 
-/* Buttons */
-.register-btn, .login-btn {
+.register-btn {
     width: 100%;
-    background: #28a745;
+    padding: 10px;
+    background: rgb(21, 120, 150);
     color: white;
-    padding: 12px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
+    transition: 0.3s;
 }
 
 .register-btn:hover {
-    background: #218838;
+    background: rgba(21, 120, 150, 0.763);
 }
 
-.login-btn {
-    background: #f4f4f4;
-    color: #000;
-    border: 1px solid #ccc;
+.register-login-text {
     margin-top: 10px;
+    font-size: 14px;
 }
 
-.login-btn:hover {
-    background: #e0e0e0;
+.register-login-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background: rgb(21, 120, 150);
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
 }
+
+.register-login-btn:hover {
+    background: rgba(21, 120, 150, 0.763);
+}
+

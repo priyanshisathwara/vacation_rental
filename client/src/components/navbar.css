@@ -26,7 +26,8 @@
 }
 
 .black-text {
-  color: #0b92b7d1; /* White text for better contrast */
+  color: #2c4249d1;
+  font-family: 'cursive'; /* White text for better contrast */
 }
 
 .blue-text {
@@ -126,7 +127,7 @@
 
 /* Register Button */
 .register-btn {
-  background: rgb(21, 120, 150);;
+  background: rgb(21, 120, 150);
   color: white;
   padding: 10px 20px;
   border: 2px solid rgb(21, 120, 150);

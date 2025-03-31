@@ -1,112 +1,138 @@
 /* Apply styles only inside the .places-list-page */
 .places-list-page {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding-left: 50px;
-    background: linear-gradient(135deg, #b2c1f1, #d4e3f1);
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
     font-family: 'Poppins', sans-serif;
+    padding: 50px 0;
 }
 
-.places-list-page .container {
-    padding: 40px;
-    width: 100%;
+.container {
+    width: 90%;
+    max-width: 1200px;
 }
 
-.places-list-page .grid {
+.grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start; /* Align items to the left */
-    gap: 25px;
+    justify-content: center;
+    gap: 40px;
     width: 100%;
 }
 
-.places-list-page .card {
-    background: linear-gradient(135deg, #9861af, #6cb0de); /* Vibrant purple-blue gradient */
+
+.card {
+    background-color: #f9f9f9;
     border-radius: 15px;
     overflow: hidden;
-    text-align: center;
-    color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    width: 300px; /* Fixed width for uniform cards */
+    width: 350px;
+    text-align: left;
+    padding-bottom: 20px;
 }
 
-.places-list-page .card:hover {
+.card-content{
+    border-radius: 20px 20px 0 0 ;
+    margin-top: -5px;
+}
+
+.card:hover {
     transform: translateY(-10px);
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.places-list-page .card img {
+.card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 0 0;
 }
 
-.places-list-page .card-content {
-    padding: 20px;
-}
-
-.places-list-page .card h3 {
-    font-size: 20px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.places-list-page .card p {
-    font-size: 14px;
-    color: #dfe9f3; /* Light soft text */
-    margin-bottom: 10px;
-}
-
-.places-list-page .price {
-    font-size: 24px;
+.card h3 {
+    font-size: 22px;
     font-weight: bold;
-    color: #ffcc00; /* Bright yellow accent */
-    margin-bottom: 10px;
+    color: #333;
+    padding: 20px 20px 10px;
 }
 
-.places-list-page .buttons {
-    margin-top: 10px;
+.card p {
+    font-size: 14px;
+    color: #666;
+    padding: 0 20px;
+    margin: 5px 0;
 }
 
-.places-list-page button {
-    padding: 10px 16px;
-    margin: 5px;
+.card .date {
+    font-size: 12px;
+    color: #aaa;
+    padding: 0 20px;
+    margin-top: 5px;
+}
+
+/* Buttons Container */
+.card-buttons {
+    display: flex;
+    justify-content: space-between; /* Ensures buttons are aligned in a row */
+    gap: 10px; /* Adds spacing between buttons */
+    margin-top: 15px;
+    margin-left: 25px;
+    width: 300px;
+  }
+  
+  /* Button Styling */
+  .book-now-btn,
+  .add-to-cart-btn {
+    flex: 1; /* Makes both buttons equal in width */
+    padding: 12px 15px;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease-in-out, transform 0.2s;
-}
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .book-now-btn {
+    background-color: #247b97;
+    color: #e0ecff;
+  }
+  
+  .book-now-btn:hover {
+    background-color: #e0ecff;
+    color: #247b97;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #e0ecff;
+    color: #247b97;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #247b97;
+    color: #e0ecff;
+  }
+  
 
-.places-list-page button:hover {
-    transform: scale(1.05);
-}
-
-.places-list-page .add-to-cart {
-    background: #fff;
-    color: #2575fc;
-}
-
-.places-list-page .add-to-cart:hover {
-    background: #ffcc00;
-    color: #2c3e50;
-}
-
-.places-list-page .view-details {
-    background: transparent;
-    border: 2px solid white;
+/* .book-now-btn, .add-to-cart-btn {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 15px auto 0;
+    padding: 12px;
+    background-color: #007bff;
     color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
 }
 
-.places-list-page .view-details:hover {
-    background: white;
-    color: #2575fc;
-}
+.book-now-btn:hover , .add-to-cart-btn:hover{
+    background-color: #0056b3;
+} */

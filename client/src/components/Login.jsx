@@ -78,7 +78,7 @@ function Login() {
                 </form>
 
                 <p>Don't Have an Account?</p>
-                <Link to="/register" className="register-btn">Register</Link>
+                <Link to="/register" className="register-btn-in-login">Register</Link>
             </div>
             <ToastContainer />
         </div>
