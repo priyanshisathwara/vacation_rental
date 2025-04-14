@@ -25,56 +25,54 @@ export default function SearchBar() {
     console.log("Selected Item Data:", searchData[selectedItem]);
 
     const handleKeyDown = (e) => {
-        if (searchData.length === 0) return; // Avoid accessing an empty array
-
-        if (e.key === "ArrowUp" && selectedItem > 0) {
-            setSelectedItem(prev => prev - 1);
-        } else if (e.key === "ArrowDown" && selectedItem < searchData.length - 1) {
-            setSelectedItem(prev => prev + 1);
+        if (searchData.length === 0) return; 
+    
+        if (e.key === "ArrowUp") {
+            setSelectedItem(prev => Math.max(prev - 1, 0)); // Prevent going below 0
+        } else if (e.key === "ArrowDown") {
+            setSelectedItem(prev => Math.min(prev + 1, searchData.length - 1)); // Prevent going out of range
         } else if (e.key === "Enter") {
             if (selectedItem >= 0 && selectedItem < searchData.length) {
-                const selected = searchData[selectedItem];
-                console.log("Search Data Length:", searchData.length);
-                console.log("Selected Item Index:", selectedItem);
-
-                if (selected?.id) {
-                    navigate(`/places/${selected.id}`); // ✅ Navigating correctly
-                } else if (selected?.city) {
-                    navigate(`/places/name/${encodeURIComponent(selected.city)}`);
-                } else {
-                    console.error("City data is missing required fields:", selected);
-                }
-            } else {
-                console.warn("Invalid selectedItem index:", selectedItem);
+                handleCityClick(searchData[selectedItem]); // ✅ Safe navigation
             }
         }
     };
+    
 
     const handleCityClick = (city) => {
-        if (city.id) {
-            navigate(`/places/${city.id}`);
-        } else if (city.city) {
+        if (!city) {
+            console.error("Invalid city data:", city);
+            return;
+        }
+    
+        // Navigate to city result page using only city name
+        if (city.city) {
+            console.log("City clicked:", city);
             navigate(`/places/name/${encodeURIComponent(city.city)}`);
         } else {
-            console.error("City data is missing required fields:", city);
+            console.error("City data is missing the 'city' field:", city);
         }
+        setSearch(""); 
+        setSearchData([]); 
     };
+    
 
     useEffect(() => {
-        if (search.trim() !== "") {
-            axios.post("http://localhost:8000/api/auth/search", { query: search })
-                .then((res) => {
-                    console.log("API Response:", res.data);
-                    setSearchData(Array.isArray(res.data) ? res.data : []);
-                })
-                .catch(err => {
-                    console.error("Error fetching search results:", err);
-                    setSearchData([]);
-                });
-        } else {
-            setSearchData([]);
+        if (search.trim() === "") {
+            setSearchData([]); // Clear results when input is empty
+            return;
         }
-    }, [search]);  // ✅ Removed `searchData` from dependencies
+
+        axios.post("http://localhost:8000/api/auth/search", { query: search })
+            .then((res) => {
+                setSearchData(Array.isArray(res.data) ? res.data : []);
+            })
+            .catch(err => {
+                console.error("Error fetching search results:", err);
+                setSearchData([]);
+            });
+
+    }, [search]);
 
     return (
         <section className='search-section'>

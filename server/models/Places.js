@@ -1,27 +1,10 @@
 import db from "../config/db.js";
 import express from "express";
-import multer from "multer";
-import path from "path";
 
 const app = express();
 app.use(express.json());
 
-// Multer Storage Configuration
-// const storage = multer.diskStorage({
-//   destination: "./uploads/", // Folder where images will be stored
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
-//   },
-// });
-
-// const upload = multer({ storage });
-
-// Create Place Route with Multer Middleware
 export const createPlace = (req, res) => {
-//   upload.single("image")(req, res, (err) => {
-    // if (err) {
-    //   return res.status(500).json({ error: "Multer error", details: err.message });
-    // }
 
     try {
       console.log("File received:", req.file); // Debugging
@@ -94,7 +77,7 @@ export const createPlace = (req, res) => {
 
 // Get Places Route
 export const getPlaces = (req, res) => {
-  const sqlGetPlaces = "SELECT * FROM places ORDER BY created_at DESC";
+  const sqlGetPlaces = "SELECT * FROM places WHERE is_approved = 1 ORDER BY created_at DESC";
 
   db.query(sqlGetPlaces, (err, results) => {
     if (err) {
@@ -103,4 +86,19 @@ export const getPlaces = (req, res) => {
 
     return res.status(200).json(results);
   });
+};
+
+
+export const updatePlace = (id, place_name, location, price, owner_name) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            UPDATE places 
+            SET place_name = ?, location = ?, price = ?, owner_name = ?
+            WHERE id = ?
+        `;
+        db.query(query, [place_name, location, price, owner_name, id], (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
 };

@@ -11,6 +11,9 @@ import PlacesList from './components/PlacesList';
 import AboutUs from './components/AboutUs';
 import SearchBar from './components/SearchBar';
 import CityResult from './components/CityResults';
+import Blog from './components/Blog';
+import Admin from './components/Admin/AdminDashboard';
+
 
 function App() {
 
@@ -28,7 +31,12 @@ function App() {
     <Route path='/about-us' element={<AboutUs />}/>
     <Route path='/search' element={<SearchBar />}/>
     <Route path="/places/:id" element={<CityResult />} />
-    <Route path="/places/name/:ciy" element={<CityResult />} />
+    <Route path="/places/name/:city" element={<CityResult />} />
+    <Route path="/blog" element={<Blog />} />
+    <Route path="/admin/*" element={<Admin />} />
+    {/* <Route path="/update-place/:id" element={<UpdatePlace />} /> */}
+    {/* <Route path="/update-place/:id" element={<UpdatePlace />} /> */}
+
 
 
 

@@ -189,28 +189,49 @@ export const searchData = async (req, res) => {
   });
 };
 
+// export const cityResult = async (req, res) => {
+//   const { id, city } = req.params;  
+
+//   let sql;
+//   let queryParam;
+
+//   if (id) {
+//       sql = "SELECT * FROM places WHERE id = ?";
+//       queryParam = [id];
+//   } else if (city) {
+//       sql = "SELECT * FROM places WHERE city LIKE ?";
+//       queryParam = [`%${city}%`];
+//   } else {
+//       return res.status(400).json({ error: "Invalid request. Please provide an ID or city name." });
+//   }
+
+//   db.query(sql, queryParam, (err, results) => {
+//       if (err) {
+//           return res.status(500).json({ error: "Database query failed", details: err.message });
+//       }
+//       if (results.length === 0) {
+//           return res.status(404).json({ message: "No data found for the given criteria." });
+//       }
+//       return res.status(200).json(results);
+//   });
+// };
+
 export const cityResult = async (req, res) => {
-  const { id, city } = req.params;  
+  const { city } = req.params;
 
-  let sql;
-  let queryParam;
-
-  if (id) {
-      sql = "SELECT * FROM places WHERE id = ?";
-      queryParam = [id];
-  } else if (city) {
-      sql = "SELECT * FROM places WHERE city LIKE ?";
-      queryParam = [`%${city}%`];
-  } else {
-      return res.status(400).json({ error: "Invalid request. Please provide an ID or city name." });
+  if (!city) {
+      return res.status(400).json({ error: "City name is required." });
   }
+
+  const sql = "SELECT * FROM places WHERE city LIKE ?";
+  const queryParam = [`%${city}%`];
 
   db.query(sql, queryParam, (err, results) => {
       if (err) {
           return res.status(500).json({ error: "Database query failed", details: err.message });
       }
       if (results.length === 0) {
-          return res.status(404).json({ message: "No data found for the given criteria." });
+          return res.status(404).json({ message: "No data found for the given city." });
       }
       return res.status(200).json(results);
   });

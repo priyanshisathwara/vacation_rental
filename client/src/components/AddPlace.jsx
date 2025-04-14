@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import "./AddPlace.css";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddPlace() {
+  const navigate = useNavigate()
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     place_name: '',
@@ -65,6 +67,7 @@ export default function AddPlace() {
 
       if (response.status === 201) {
         toast.success("Place added successfully!");
+        setTimeout(() => navigate("/places"), 1000);
         setFormData({ place_name: '', location: '', price: '', owner_name: '', city: '', image: null }); // Reset form
       }
 

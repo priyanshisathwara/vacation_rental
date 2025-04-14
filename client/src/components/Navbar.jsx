@@ -37,7 +37,7 @@ export default function Navbar() {
         </li>
 
         <a href="/experiences"><li>Experiences</li></a>
-        <a href="/blog"><li>Blog</li></a>
+        <Link to="/blog">Blog</Link>
         <a href="/faqs"><li>FAQs</li></a>
       </ul>
       </div>
