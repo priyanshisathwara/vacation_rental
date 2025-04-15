@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+import Navbar from './Navbar';
+import SearchBar from './SearchBar';  // ✅ Import SearchBar component
+import "./home.css";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div>
-      <h1><b> Welcome to Vacation Rental</b></h1>
+    <>
+      <div className='home-container'>
+        <Navbar />
+        
+        <div className="search-bar-container">
+          <SearchBar />
+        </div>
       </div>
-  )
-}
+      {/* <PlacesList /> */}
+    </>
+  );
+};
+
+export default Home;

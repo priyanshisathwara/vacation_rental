@@ -1,76 +1,38 @@
 import express from "express";
-import mysql from 'mysql';
 import cors from "cors";
-import bcrypt from "bcrypt";
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
+import { Mail } from "./config/mailer.js"; // ✅ Import Mail class
+
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "employee",
-    port: 8889
+app.use("/uploads", express.static("uploads"));
+
+// ✅ Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes)
+
+
+app.get("/",  (req, res) => {
+  res.send("Hello");
+
+  // const mail = new Mail();
+  // mail.setTo(process.env.TO_EMAIL);
+  // mail.setSubject('Subject');
+  // mail.setText('hello form VR ${otp}')
+  // mail.send()
 });
 
-db.getConnection((err) => {
-    if (err) {
-        console.error("Database connection failed: ", err);
-    } else {
-        console.log("Connected to MySQL Database");
-    }
+// ✅ Start Server
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
-
-app.post('/login', async (req,res) => {
-    const { email, password } = req.body;
-
-    const sql = "SELECT * FROM register WHERE email = ?"
-
-    db.query(sql, [email], async (err, data) => {
-        if(err) return res.json("Error");
-        if(data.length > 0){
-        let result = await bcrypt.compare(password, data[0]?.password);
-            
-            if(result) {
-                res.json({ Login: true, message: "login successful" });
-            } else {
-                res.json({ Login: false, message: "login failed" });
-            }
-
-        }
-        else{
-            res.json({ Login: false, message: "login failed" });
-
-        }
-    })
-})
-
-app.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
-    console.log("hashedPassword: ", hashedPassword);
-
-    const sql = "INSERT INTO register (name, email, password) VALUES (?, ?, ?)";
-
-    db.query(sql, [name, email, hashedPassword], (err, result) => {
-        if (err) return res.status(500).json({ error: "Error inserting user", err });
-
-        if (result.affectedRows > 0) {
-            return res.status(200).json({ message: "User registered successfully" });
-        } else {
-            return res.status(400).json({ message: "Error registering user" });
-        }
-    });
-});
-
-app.listen(8000, ()=>{
-    console.log("Server Listning...");
-})
-

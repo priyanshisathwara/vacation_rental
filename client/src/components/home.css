@@ -1,0 +1,22 @@
+.home-container {
+  background-image: url('/src/assets/temp.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 23px;
+  height: 90vh; /* Full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; 
+  }
+
+  .search-bar-container {
+    margin-top: 45px;  /* Adjust vertical spacing */
+    position: absolute;
+    top: 50px;  /* Adjust the distance from the top */
+    left: 50%;
+    transform: translateX(-50%);  /* Center the search bar */
+    width: 50%; /* Adjust width */
+}
+

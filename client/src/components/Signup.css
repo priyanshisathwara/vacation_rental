@@ -1,0 +1,92 @@
+/* Register.css - Scoped Styles */
+.register-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3eded;
+}
+
+.register-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.register-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+.register-form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.register-form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.register-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.register-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgb(21, 120, 150);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-btn:hover {
+    background: rgba(21, 120, 150, 0.763);
+}
+
+.register-login-text {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.register-login-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background: rgb(21, 120, 150);
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.register-login-btn:hover {
+    background: rgba(21, 120, 150, 0.763);
+}
+

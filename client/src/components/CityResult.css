@@ -1,0 +1,47 @@
+.city-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Creates responsive grid */
+    gap: 20px; /* Adds space between each card */
+    padding: 20px;
+}
+
+.city-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.city-card:hover {
+    transform: translateY(-10px); /* Adds hover effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More prominent shadow on hover */
+}
+
+.city-image {
+    width: 100%;
+    height: 200px; /* Adjust as per image aspect ratio */
+    object-fit: cover;
+}
+
+.city-details {
+    padding: 15px;
+}
+
+.city-details h1, .city-details h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.city-details p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 10px;
+}

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Validation from './SignupValidation';
 import { ToastContainer, toast } from 'react-toastify';
+import "./Signup.css";
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -11,22 +12,25 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
+    const [role, setRole] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const newValues = { name, email, password };
+        const newValues = { name, email, password, role };
 
-        // Validate inputs before proceeding
+
+
         const validationErrors = Validation("", newValues);
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) {
             toast.error("Please enter valid values")
             return;
         }
-        axios.post('http://localhost:8000/register', { name, email, password })
+        axios.post('http://localhost:8000/api/auth/register', { name, email, password, role })
             .then(result => {
                 console.log(result)
                 toast.success('Register Successfully');
+                localStorage.setItem("user", JSON.stringify(result.data.user));
                 setTimeout(() => navigate("/"), 1000);
             })
             .catch(err => console.log(err))
@@ -34,61 +38,86 @@ export default function Signup() {
 
 
     return (
-        <>
-            <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
-                <div className='bg-white p-3 rounded w-25'>
-                    <h2>Register</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className='mb-3'>
-                            <label htmlFor='name'>
-                                <strong>Name</strong>
-                            </label>
-                            <input type='text' placeholder='Enter Name' autoComplete='off' name='name' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setName(e.target.value)
-                                    setErrors(prev => ({ ...prev, name: "" }))
-                                    let error1 = Validation("checkName", { name: e.target.value, email, password })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.name && <span className="text-danger">{errors.name}</span>}
-                        </div>
+        <div className="register-page-container">
+            <div className="register-box">
+                <h2 className="register-title">Register</h2>
+                <div className="register-radio-group">
+        <label>
+            <input
+                type="radio"
+                value="user"
+                checked={role === "user"}
+                onChange={(e) => setRole(e.target.value)}
+            />
+            User
+        </label>
+        <label style={{ marginLeft: '20px' }}>
+            <input
+                type="radio"
+                value="owner"
+                checked={role === "owner"}
+                onChange={(e) => setRole(e.target.value)}
+            />
+            Owner
+        </label>
+    </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="register-form-group">
+                        <label><strong>Name</strong></label>
+                        <input
+                            type="text"
+                            placeholder="Enter Name"
+                            autoComplete="off"
+                            className="register-input"
+                            value={name}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                setErrors((prev) => ({ ...prev, name: "" }));
+                            }}
+                        />
+                        {errors?.name && <span className="register-error">{errors.name}</span>}
+                    </div>
 
-                        <div className='mb-3'>
-                            <label htmlFor='email'>
-                                <strong>Email</strong>
-                            </label>
-                            <input type='text' placeholder='Enter email' autoComplete='off' name='email' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setEmail(e.target.value)
-                                    setErrors(prev => ({ ...prev, email: "" }))
-                                    let error1 = Validation("checkEmail", { name, email: e.target.value, password })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.email && <span className="text-danger">{errors.email}</span>}
-                        </div>
+                    <div className="register-form-group">
+                        <label><strong>Email</strong></label>
+                        <input
+                            type="text"
+                            placeholder="Enter Email"
+                            autoComplete="off"
+                            className="register-input"
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setErrors((prev) => ({ ...prev, email: "" }));
+                            }}
+                        />
+                        {errors?.email && <span className="register-error">{errors.email}</span>}
+                    </div>
 
-                        <div className='mb-3'>
-                            <label htmlFor='password'>
-                                <strong>Password</strong>
-                            </label>
-                            <input type='password' placeholder='Enter password' autoComplete='off' name='password' className='form-control rounded-0'
-                                onChange={(e) => {
-                                    setPassword(e.target.value)
-                                    setErrors(prev => ({ ...prev, password: "" }))
-                                    let error1 = Validation("checkPassword", { name, email, password: e.target.value })
-                                    setErrors(error1);
-                                }} />
-                            {errors?.password && <span className="text-danger">{errors.password}</span>}
-                        </div>
-                        <button type='submit' className='btn btn-success w-100 rounded-0'>Register</button>
-                    </form>
-                    <p>Already Have an Account?</p>
-                    <Link to="/login" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Login</Link>
+                    <div className="register-form-group">
+                        <label><strong>Password</strong></label>
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            autoComplete="off"
+                            className="register-input"
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setErrors((prev) => ({ ...prev, password: "" }));
+                            }}
+                        />
+                        {errors?.password && <span className="register-error">{errors.password}</span>}
+                    </div>
 
+                    <button type="submit" className="register-btn">Register</button>
+                </form>
 
-                </div>
+                <p className="register-login-text">Already Have an Account?</p>
+                <Link to="/login" className="register-login-btn">Login</Link>
             </div>
             <ToastContainer />
-        </>
-    )
-}
+        </div>
+    );
+};
+
