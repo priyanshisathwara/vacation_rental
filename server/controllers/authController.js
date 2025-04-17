@@ -13,7 +13,22 @@ export const loginUser = async (req, res) => {
       const result = await bcrypt.compare(password, data[0]?.password);
 
       if (result) {
-        res.json({ Login: true, message: "Login successful" });
+        // Check if the role is either 'user' or 'owner'
+        const userRole = data[0].role;
+
+        if (userRole === 'user' || userRole === 'owner') {
+          res.json({
+            Login: true,
+            user: {
+              id: data[0].id,          // User ID
+              email: data[0].email,    // User Email
+              username: data[0].username, // Username
+              role: userRole           // User Role (either 'user' or 'owner')
+            }
+          });
+        } else {
+          res.json({ Login: false, message: "Invalid role" }); // In case the role is not 'user' or 'owner'
+        }
       } else {
         res.json({ Login: false, message: "Invalid email or password" });
       }
@@ -23,18 +38,19 @@ export const loginUser = async (req, res) => {
   });
 };
 
+
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO register (name, email, password) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO register (name, email, password, role) VALUES (?, ?, ?, ?)";
 
-    db.query(sql, [name, email, hashedPassword], (err, result) => {
+    db.query(sql, [name, email, hashedPassword, role], (err, result) => {
       if (err) {
         if (err.code === "ER_DUP_ENTRY") {
           return res.status(400).json({ error: "Email already exists" });
@@ -42,13 +58,14 @@ export const registerUser = async (req, res) => {
         return res.status(500).json({ error: "Error inserting user", details: err.message });
       }
 
-      return res.status(201).json({ message: "User registered successfully" });
+      return res.status(201).json({ message: "User registered successfully", user: { name, email, role } });
     });
 
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
+
 
 export const verifyOtp = async (req, res) => {
  const {enteredOTP, email} = req.body;

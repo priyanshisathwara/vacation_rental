@@ -21,9 +21,6 @@ export default function SearchBar() {
         setSelectedItem(-1);  // ✅ Fixed
     };
 
-    console.log("Selected Item Index:", selectedItem);
-    console.log("Selected Item Data:", searchData[selectedItem]);
-
     const handleKeyDown = (e) => {
         if (searchData.length === 0) return; 
     

@@ -16,10 +16,10 @@ const AdminSideBar = () => {
                     {isOpen ? 'Close' : 'Open'}
                 </button>
                 <ul className="menu">
-                    <Link to="/admin">Home</Link>
-                    <br />
-                    <Link to="/admin/request">Request</Link>
+                    <li><Link to="/admin">Home</Link></li>
+                    <li><Link to="/admin/request">Request</Link></li>
                 </ul>
+
             </div>
             <div className={`overlay ${isOpen ? 'active' : ''}`} onClick={toggleSidebar}></div>
         </div>

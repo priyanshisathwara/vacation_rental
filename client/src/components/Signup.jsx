@@ -18,8 +18,6 @@ export default function Signup() {
         e.preventDefault()
         const newValues = { name, email, password, role };
 
-
-
         const validationErrors = Validation("", newValues);
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) {

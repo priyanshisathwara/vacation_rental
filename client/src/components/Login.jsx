@@ -14,7 +14,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const newValues = { email, password };
 
         const validationErrors = Validation(newValues);
@@ -30,6 +30,10 @@ function Login() {
 
             if (response.data.Login) {
                 toast.success("Login Successfully");
+                // Example after a successful login
+                const user = response.data.user; 
+                localStorage.setItem("user", JSON.stringify(user));
+
                 setTimeout(() => navigate("/"), 1000);
             } else {
                 toast.error("No record found");
@@ -42,46 +46,46 @@ function Login() {
 
     return (
         <>
-           <div className="login-page">
-            <div className="login-container">
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="email"><strong>Email</strong></label>
-                        <input
-                            type="text"
-                            placeholder="Enter email"
-                            autoComplete="off"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {errors.email && <span className="error">{errors.email}</span>}
-                    </div>
+            <div className="login-page">
+                <div className="login-container">
+                    <h2>Login</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="email"><strong>Email</strong></label>
+                            <input
+                                type="text"
+                                placeholder="Enter email"
+                                autoComplete="off"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {errors.email && <span className="error">{errors.email}</span>}
+                        </div>
 
-                    <div className="form-group">
-                        <label htmlFor="password"><strong>Password</strong></label>
-                        <input
-                            type="password"
-                            placeholder="Enter password"
-                            autoComplete="off"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        {errors.password && <span className="error">{errors.password}</span>}
-                    </div>
+                        <div className="form-group">
+                            <label htmlFor="password"><strong>Password</strong></label>
+                            <input
+                                type="password"
+                                placeholder="Enter password"
+                                autoComplete="off"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {errors.password && <span className="error">{errors.password}</span>}
+                        </div>
 
-                    <Link to="/forgot" className="forgot-password">Forgot Password?</Link>
+                        <Link to="/forgot" className="forgot-password">Forgot Password?</Link>
 
-                    <button type="submit" className="login-btn">Login</button>
-                </form>
+                        <button type="submit" className="login-btn">Login</button>
+                    </form>
 
-                <p>Don't Have an Account?</p>
-                <Link to="/register" className="register-btn-in-login">Register</Link>
+                    <p>Don't Have an Account?</p>
+                    <Link to="/register" className="register-btn-in-login">Register</Link>
+                </div>
+                <ToastContainer />
             </div>
-            <ToastContainer />
-        </div>
         </>
     );
 }

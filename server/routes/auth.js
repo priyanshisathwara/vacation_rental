@@ -14,5 +14,4 @@ router.post("/search", searchData)
 router.get("/places/name/:city", cityResult);  
 
 
-
 export default router;

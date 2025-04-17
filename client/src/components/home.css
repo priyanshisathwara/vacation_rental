@@ -4,19 +4,316 @@
   background-position: center;
   background-repeat: no-repeat;
   margin-top: 23px;
-  height: 90vh; /* Full screen height */
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white; 
+  color: white;
+}
+
+.search-bar-container {
+  margin-top: 45px;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+}
+
+.home-exp {
+  padding: 2rem;
+}
+
+
+
+.home-exp h2 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #2c4249d1;
+}
+
+.home-exp-row{
+  display: flex;
+  gap: 12px;
+}
+
+.home-exp-column {
+  position: relative;
+  display: flex;
+  width: 650px;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.home-exp-column:hover {
+  transform: scale(1.03);
+}
+
+.home-exp-column img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.9;
+}
+
+.home-exp-column p{
+  font-size: 2rem;
+}
+
+.exp-button{
+  background-color: #fefefe;
+  border: none;
+  border-radius: 2px;
+
+}
+
+.home-exp-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+/* General section styling */
+section {
+  margin: 4rem 0;
+  padding: 0 2rem;
+}
+
+section h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* Card container */
+.destination-cards,
+.experience-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* Individual card style */
+.destination-card,
+.experience-card {
+  width: 430px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.destination-card:hover,
+.experience-card:hover {
+  transform: translateY(-5px);
+}
+
+.destination-card img,
+.experience-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.destination-card p,
+.experience-card p {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Why Choose Us section */
+.why-choose-us {
+  background-color: #f9f9f9;
+  padding: 4rem 2rem;
+}
+
+.why-choose-us h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.feature {
+  flex: 1 1 200px;
+  max-width: 220px;
+  text-align: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  font-size: 1rem;
+  color: #333;
+}
+
+@media (max-width: 1024px) {
+  .home-container {
+    height: 75vh;
+    flex-direction: column;
+    padding: 0 1.5rem;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .home-container {
+    height: 60vh;
+    padding: 0 1rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .home-container {
+    height: auto;
+    padding: 2rem 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-exp h2 {
+    font-size: 2.5rem;
+  }
+
+  .home-exp-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-exp-column {
+    width: 90%;
+    height: auto;
   }
 
   .search-bar-container {
-    margin-top: 45px;  /* Adjust vertical spacing */
-    position: absolute;
-    top: 50px;  /* Adjust the distance from the top */
-    left: 50%;
-    transform: translateX(-50%);  /* Center the search bar */
-    width: 50%; /* Adjust width */
+    width: 80%;
+  }
+
+  .destination-card,
+  .experience-card {
+    width: 80%;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature {
+    width: 80%;
+  }
 }
 
+@media (max-width: 768px) {
+  .home-container {
+    height: 70vh;
+    padding: 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .search-bar-container {
+    top: 30px;
+    width: 90%;
+  }
+
+  .home-exp h2 {
+    font-size: 2rem;
+  }
+
+  .home-exp-column {
+    width: 95%;
+  }
+
+  .destination-cards,
+  .experience-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .destination-card,
+  .experience-card {
+    width: 95%;
+  }
+
+  section h3 {
+    font-size: 1.5rem;
+  }
+
+  .feature {
+    width: 95%;
+  }
+
+  .home-exp-column p {
+    font-size: 1.5rem;
+  }
+
+  .feature span {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-exp h2 {
+    font-size: 1.5rem;
+  }
+
+  .home-exp-column p {
+    font-size: 1.2rem;
+  }
+
+  .destination-card img,
+  .experience-card img {
+    height: 200px;
+  }
+
+  .destination-card p,
+  .experience-card p {
+    font-size: 1rem;
+  }
+
+  .feature p {
+    font-size: 0.95rem;
+  }
+
+  .feature span {
+    font-size: 1.2rem;
+  }
+
+  .home-exp-content {
+    font-size: 1rem;
+  }
+}
