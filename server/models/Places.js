@@ -89,16 +89,3 @@ export const getPlaces = (req, res) => {
 };
 
 
-export const updatePlace = (id, place_name, location, price, owner_name) => {
-    return new Promise((resolve, reject) => {
-        const query = `
-            UPDATE places 
-            SET place_name = ?, location = ?, price = ?, owner_name = ?
-            WHERE id = ?
-        `;
-        db.query(query, [place_name, location, price, owner_name, id], (err, result) => {
-            if (err) return reject(err);
-            resolve(result);
-        });
-    });
-};

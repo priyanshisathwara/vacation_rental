@@ -159,7 +159,7 @@
 
 .profile-icon {
   font-size: 30px;
-  color: #00bcd4; 
+  color: #247b97; 
   cursor: pointer;
 }
 
@@ -168,6 +168,7 @@
   display: none;
   font-size: 28px;
   cursor: pointer;
+  color: black;
 }
 
 @media (max-width: 768px) {

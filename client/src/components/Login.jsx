@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import Validation from './LoginValidation';
@@ -30,10 +30,18 @@ function Login() {
 
             if (response.data.Login) {
                 toast.success("Login Successfully");
-                // Example after a successful login
-                const user = response.data.user; 
+
+                // Extracting user info from response
+                const user = {
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    role: response.data.user.role
+                };
+
+                // Store in localStorage
                 localStorage.setItem("user", JSON.stringify(user));
 
+                // Navigate to profile
                 setTimeout(() => navigate("/"), 1000);
             } else {
                 toast.error("No record found");

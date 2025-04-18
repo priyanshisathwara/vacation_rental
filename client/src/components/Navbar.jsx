@@ -51,23 +51,7 @@ export default function Navbar() {
         <ul className="nav-links">
           <Link to="/"><li className="active">Home</li></Link>
           <Link to="/about-us"><li>About Us</li></Link>
-
-          <li
-            className="dropdown"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-          >
-            Destinations <IoMdArrowDropdown className="dropdown-icon" />
-            {dropdownOpen && (
-              <ul className="dropdown-menu">
-                <li><a href="/destinations/beach">Beach Resorts</a></li>
-                <li><a href="/destinations/mountain">Mountain Cabins</a></li>
-                <li><a href="/destinations/city">City Apartments</a></li>
-              </ul>
-            )}
-          </li>
-
-          <Link to="/experiences"><li>Experiences</li></Link>
+          <Link to="/experience"><li>Experiences</li></Link>
           <Link to="/blog"><li>Blog</li></Link>
           <Link to="/places"><li>Places</li></Link>
 

@@ -1,77 +1,103 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Validation from './SignupValidation';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Signup.css";
 
 export default function Signup() {
     const navigate = useNavigate();
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        role: "",
+    });
+
     const [errors, setErrors] = useState({});
-    const [role, setRole] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const newValues = { name, email, password, role };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+    };
 
-        const validationErrors = Validation("", newValues);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const validationErrors = Validation("", formData);
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) {
-            toast.error("Please enter valid values")
+            toast.error("Please enter valid values");
             return;
         }
-        axios.post('http://localhost:8000/api/auth/register', { name, email, password, role })
-            .then(result => {
-                console.log(result)
-                toast.success('Register Successfully');
-                localStorage.setItem("user", JSON.stringify(result.data.user));
-                setTimeout(() => navigate("/"), 1000);
-            })
-            .catch(err => console.log(err))
-    }
 
+        try {
+            const response = await fetch("http://localhost:8000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Save user data to localStorage
+                localStorage.setItem("user", JSON.stringify(data.user));
+
+                toast.success("Registered successfully!");
+                setTimeout(() => navigate("/"), 1000);
+            } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || "Registration failed");
+            }
+        } catch (err) {
+            console.error("Error during registration:", err);
+            toast.error("Something went wrong!");
+        }
+    };
 
     return (
         <div className="register-page-container">
             <div className="register-box">
                 <h2 className="register-title">Register</h2>
                 <div className="register-radio-group">
-        <label>
-            <input
-                type="radio"
-                value="user"
-                checked={role === "user"}
-                onChange={(e) => setRole(e.target.value)}
-            />
-            User
-        </label>
-        <label style={{ marginLeft: '20px' }}>
-            <input
-                type="radio"
-                value="owner"
-                checked={role === "owner"}
-                onChange={(e) => setRole(e.target.value)}
-            />
-            Owner
-        </label>
-    </div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="role"
+                            value="user"
+                            checked={formData.role === "user"}
+                            onChange={handleChange}
+                        />
+                        User
+                    </label>
+                    <label style={{ marginLeft: '20px' }}>
+                        <input
+                            type="radio"
+                            name="role"
+                            value="owner"
+                            checked={formData.role === "owner"}
+                            onChange={handleChange}
+                        />
+                        Owner
+                    </label>
+                </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="register-form-group">
                         <label><strong>Name</strong></label>
                         <input
                             type="text"
+                            name="name"
                             placeholder="Enter Name"
                             autoComplete="off"
                             className="register-input"
-                            value={name}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                                setErrors((prev) => ({ ...prev, name: "" }));
-                            }}
+                            value={formData.name}
+                            onChange={handleChange}
                         />
                         {errors?.name && <span className="register-error">{errors.name}</span>}
                     </div>
@@ -79,15 +105,13 @@ export default function Signup() {
                     <div className="register-form-group">
                         <label><strong>Email</strong></label>
                         <input
-                            type="text"
+                            type="email"
+                            name="email"
                             placeholder="Enter Email"
                             autoComplete="off"
                             className="register-input"
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                                setErrors((prev) => ({ ...prev, email: "" }));
-                            }}
+                            value={formData.email}
+                            onChange={handleChange}
                         />
                         {errors?.email && <span className="register-error">{errors.email}</span>}
                     </div>
@@ -96,14 +120,12 @@ export default function Signup() {
                         <label><strong>Password</strong></label>
                         <input
                             type="password"
+                            name="password"
                             placeholder="Enter Password"
                             autoComplete="off"
                             className="register-input"
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setErrors((prev) => ({ ...prev, password: "" }));
-                            }}
+                            value={formData.password}
+                            onChange={handleChange}
                         />
                         {errors?.password && <span className="register-error">{errors.password}</span>}
                     </div>
@@ -117,5 +139,4 @@ export default function Signup() {
             <ToastContainer />
         </div>
     );
-};
-
+}

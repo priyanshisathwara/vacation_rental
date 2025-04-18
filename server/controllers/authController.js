@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
           res.json({
             Login: true,
             user: {
-              id: data[0].id,          // User ID
+              name: data[0].name,          // User ID
               email: data[0].email,    // User Email
               username: data[0].username, // Username
               role: userRole           // User Role (either 'user' or 'owner')
@@ -233,23 +233,25 @@ export const searchData = async (req, res) => {
 //   });
 // };
 
-export const cityResult = async (req, res) => {
-  const { city } = req.params;
+// export const cityResult = async (req, res) => {
+//   const { city } = req.params;
 
-  if (!city) {
-      return res.status(400).json({ error: "City name is required." });
-  }
+//   if (!city) {
+//       return res.status(400).json({ error: "City name is required." });
+//   }
 
-  const sql = "SELECT * FROM places WHERE city LIKE ?";
-  const queryParam = [`%${city}%`];
+//   const sql = "SELECT * FROM places WHERE city LIKE ?";
+//   const queryParam = [`%${city}%`];
 
-  db.query(sql, queryParam, (err, results) => {
-      if (err) {
-          return res.status(500).json({ error: "Database query failed", details: err.message });
-      }
-      if (results.length === 0) {
-          return res.status(404).json({ message: "No data found for the given city." });
-      }
-      return res.status(200).json(results);
-  });
-};
+//   db.query(sql, queryParam, (err, results) => {
+//       if (err) {
+//           return res.status(500).json({ error: "Database query failed", details: err.message });
+//       }
+//       if (results.length === 0) {
+//           return res.status(404).json({ message: "No data found for the given city." });
+//       }
+//       return res.status(200).json(results);
+//   });
+// };
+
+

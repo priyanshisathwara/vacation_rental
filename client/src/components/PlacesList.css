@@ -99,6 +99,7 @@
   .book-now-btn {
     background-color: #247b97;
     color: #e0ecff;
+    text-decoration: none;
   }
   
   .book-now-btn:hover {
@@ -109,12 +110,14 @@
   .add-to-cart-btn {
     background-color: #e0ecff;
     color: #247b97;
+    text-decoration: none;
   }
-  
   .add-to-cart-btn:hover {
-    background-color: #247b97;
-    color: #e0ecff;
+    background-color: #e0ecff;
+    color: #247b97;
   }
+ 
+
   
 
 /* .book-now-btn, .add-to-cart-btn {
