@@ -17,6 +17,7 @@ import Profile from './components/Profile';
 import BookNow from './components/BookNow';
 import Experience from './components/Experience';
 import UpdatePlace from './components/UpdatePlace';
+import StatueOfUnity from './components/home-component/StatueUnity';
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
     <Route path="/book-now/:id" element={<BookNow />} />
     <Route path="/experience" element={<Experience />} />
     <Route path="/update-place/:id" element={<UpdatePlace />} />
+    <Route path="/statue" element={<StatueOfUnity />} />
+
 
 
   

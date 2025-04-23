@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import SearchBar from './SearchBar';
 import "./home.css";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
 const Home = () => {
@@ -53,7 +53,7 @@ const Home = () => {
         <div className="destination-cards">
           <div className="destination-card">
             <img src="/src/assets/guj1.jpg" alt="Beach" />
-            <p>Statue Of Unity</p>
+            <Link to='/statue'>Statue Of Unity</Link>
           </div>
           <div className="destination-card">
             <img src="/src/assets/kutch.jpeg" alt="Mountains" />
