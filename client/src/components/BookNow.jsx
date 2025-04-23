@@ -2,22 +2,24 @@ import React, { useState, useEffect } from 'react';
 import './BookNow.css'; // Importing the CSS file for styling
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BookNow = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [place, setPlace] = useState(null);
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [guests, setGuests] = useState(1);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const [userName, setUserName] = useState('');
+
 
   useEffect(() => {
-    // Fetch the place data from your API or database based on the id
     const fetchPlaceData = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/admin/places/${id}`);
-        setPlace(response.data); // axios returns data directly in response.data
+        setPlace(response.data);
       } catch (error) {
         console.error('Error fetching place data:', error);
       }
@@ -26,16 +28,39 @@ const BookNow = () => {
     fetchPlaceData();
   }, [id]);
 
-    const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setBookingConfirmed(true);
 
-   toast.success(`Booking confirmed!\nCheck-in: ${checkInDate}\nCheck-out: ${checkOutDate}\nGuests: ${guests}`);
+    // Convert to Date objects for comparison
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+
+    // Validate that checkout is after checkin
+    if (checkOut <= checkIn) {
+      toast.error('Check-out date must be after check-in date.');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:8000/api/admin/bookings', {
+        placeId: id,
+        checkInDate,
+        checkOutDate,
+        guests,
+        userName
+      });
+
+      setBookingConfirmed(true);
+      toast.success(`Booking confirmed!\nCheck-in: ${checkInDate}\nCheck-out: ${checkOutDate}\nGuests: ${guests}`);
+    } catch (error) {
+      console.error('Booking failed:', error);
+      toast.error('Failed to confirm booking.');
+    }
   };
 
 
   if (!place) {
-    return <p>Loading place details...</p>; // Show loading if place data is not available
+    return <p>Loading place details...</p>;
   }
 
   return (
@@ -64,6 +89,17 @@ const BookNow = () => {
       ) : (
         <form className="booking-form" onSubmit={handleFormSubmit}>
           <h2>Book Your Stay</h2>
+
+          <label htmlFor="user-name">Your Name</label>
+          <input
+            type="text"
+            id="user-name"
+            name="user-name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+
 
           <label htmlFor="check-in">Check-in</label>
           <input
@@ -103,7 +139,7 @@ const BookNow = () => {
           <button type="submit" className="book-now-button">Book Now</button>
         </form>
       )}
-       <ToastContainer />
+      <ToastContainer />
     </section>
   );
 };

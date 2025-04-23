@@ -45,6 +45,7 @@ const Home = () => {
           <div className="owner-card-text">Add Your Property</div>
           <div className="card-quote">"Turn your space into someone’s next dream stay!"</div>
         </div>
+        
       )}
       {/* Popular Destinations */}
       <section className="popular-destinations">

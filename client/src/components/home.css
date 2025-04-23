@@ -209,7 +209,7 @@ section h3 {
   align-items: center;
   justify-content: center;
   width: 800px;
-  height: 180px;
+  height: 200px;
   background-color: #f0f8ff;
   border: 2px dashed #0b92b7d1;
   border-radius: 16px;
@@ -245,6 +245,47 @@ section h3 {
     font-weight: 500;
   }
 }
+
+.owner-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+
+.o-update-property-card {
+  cursor: pointer;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.o-update-property-card:hover {
+  transform: scale(1.05);
+  background-color: #f4faff;
+}
+
+.owner-card-icon {
+  font-size: 2rem;
+}
+
+.owner-card-text {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card-quote {
+  font-style: italic;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  color: #555;
+}
+
 
 
 @media (max-width: 1024px) {

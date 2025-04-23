@@ -5,13 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddPlace() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     place_name: '',
     location: '',
     price: '',
-    owner_name: '',
     city: '',
     image: null
   });
@@ -27,14 +26,12 @@ export default function AddPlace() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFile(file);  // ✅ Update state with selected file
-      console.log("Selected File:", file); // ✅ Debugging
+      setImageFile(file);
+      console.log("Selected File:", file);
     } else {
       console.error("No file selected.");
     }
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +46,6 @@ export default function AddPlace() {
     formDataToSend.append("place_name", formData.place_name);
     formDataToSend.append("location", formData.location);
     formDataToSend.append("price", formData.price);
-    formDataToSend.append("owner_name", formData.owner_name);
     formDataToSend.append("city", formData.city);
     formDataToSend.append("image", imageFile);
 
@@ -59,7 +55,6 @@ export default function AddPlace() {
       console.log(pair[0] + ": ", pair[1]);
     }
 
-
     try {
       const response = await axios.post('http://localhost:8000/api/admin/create-place', formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -68,7 +63,7 @@ export default function AddPlace() {
       if (response.status === 201) {
         toast.success("Place added successfully!");
         setTimeout(() => navigate("/places"), 1000);
-        setFormData({ place_name: '', location: '', price: '', owner_name: '', city: '', image: null }); // Reset form
+        setFormData({ place_name: '', location: '', price: '', city: '', image: null });
       }
 
     } catch (error) {
@@ -83,8 +78,6 @@ export default function AddPlace() {
       }
     }
   };
-
-
 
   return (
     <div className="add-place-page">
@@ -103,6 +96,7 @@ export default function AddPlace() {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="location">Location</label>
             <input
@@ -115,6 +109,7 @@ export default function AddPlace() {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="price">Price</label>
             <input
@@ -127,18 +122,7 @@ export default function AddPlace() {
               required
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="owner_name">Owner Name</label>
-            <input
-              type="text"
-              id="owner_name"
-              name="owner_name"
-              value={formData.owner_name}
-              onChange={handleChange}
-              placeholder="Enter the owner's name"
-              required
-            />
-          </div>
+
           <div className="form-group">
             <label htmlFor="city">City</label>
             <select
@@ -178,9 +162,8 @@ export default function AddPlace() {
               type="file"
               accept="image/*"
               onChange={handleFileChange}
+              required
             />
-
-
           </div>
 
           <button type="submit" className="submit-button">Submit</button>

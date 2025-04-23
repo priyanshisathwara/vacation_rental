@@ -7,8 +7,14 @@ const PlacesList = () => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null); // Assuming user data is in localStorage
 
   useEffect(() => {
+    // Fetch user data from localStorage (or any other method)
+    const loggedInUser = localStorage.getItem('user');
+    setUser(loggedInUser ? JSON.parse(loggedInUser) : null);
+
+    // Fetch places data
     axios
       .get("http://localhost:8000/api/admin/places")
       .then((res) => {
@@ -21,16 +27,6 @@ const PlacesList = () => {
         setLoading(false);
       });
   }, []);
-
-  const handleAddToCart = (place) => {
-    const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const isAlreadyInCart = existingCart.some((item) => item.id === place.id);
-
-    if (!isAlreadyInCart) {
-      const updatedCart = [...existingCart, place];
-      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-    }
-  };
 
   if (loading) return <h2>Loading places...</h2>;
   if (error) return <h2 className="error">{error}</h2>;
@@ -51,19 +47,18 @@ const PlacesList = () => {
                 <p><strong>Location:</strong> {place.location}</p>
                 <p><strong>City:</strong> {place.city}</p>
                 <p><strong>Price:</strong> ₹{place.price}</p>
-                <p><strong>Owner:</strong> {place.owner_name}</p>
                 <p><strong>Added on:</strong> {new Date(place.created_at).toLocaleDateString()}</p>
                 <div className="card-buttons">
-                <Link to={`/book-now/${place.id}`} className="book-now-btn">
-                Book Now
-              </Link>
-                  <Link
-                    to="/cart"
-                    className="add-to-cart-btn"
-                    onClick={() => handleAddToCart(place)}
-                  >
-                    Add to Cart
+                  <Link to={`/book-now/${place.id}`} className="book-now-btn">
+                    Book Now
                   </Link>
+
+                  {/* Conditionally render the "Update Place" button if the user is the owner */}
+                  {user && user.role === "owner" && (
+                    <Link to={`/update-place/${place.id}`} className="add-to-cart-btn">
+                      Update Place
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

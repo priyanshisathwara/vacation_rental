@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import db from "../config/db.js";
 import { Mail } from "../config/mailer.js";
+import jwt from 'jsonwebtoken';
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -13,21 +14,32 @@ export const loginUser = async (req, res) => {
       const result = await bcrypt.compare(password, data[0]?.password);
 
       if (result) {
-        // Check if the role is either 'user' or 'owner'
         const userRole = data[0].role;
 
+        const token = jwt.sign(
+          {
+            id: data[0].id,
+            name: data[0].name,
+            role: data[0].role,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: '1d' }
+        );
+
         if (userRole === 'user' || userRole === 'owner') {
-          res.json({
+          res.status(200).json({
             Login: true,
+          
             user: {
-              name: data[0].name,          // User ID
-              email: data[0].email,    // User Email
-              username: data[0].username, // Username
-              role: userRole           // User Role (either 'user' or 'owner')
-            }
+              name: data[0].name,
+              email: data[0].email,
+              username: data[0].username,
+              role: userRole
+            },
+            token
           });
         } else {
-          res.json({ Login: false, message: "Invalid role" }); // In case the role is not 'user' or 'owner'
+          res.json({ Login: false, message: "Invalid role" });
         }
       } else {
         res.json({ Login: false, message: "Invalid email or password" });
@@ -97,6 +109,7 @@ export const sendResetPasswordMail = async (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Error", details: err.message });
     }
+    
     const mail = new Mail();
     mail.setTo(email);
     mail.setSubject("Password Reset OTP");
@@ -206,52 +219,24 @@ export const searchData = async (req, res) => {
   });
 };
 
-// export const cityResult = async (req, res) => {
-//   const { id, city } = req.params;  
 
-//   let sql;
-//   let queryParam;
+export const cityResult = async (req, res) => {
+  const { city } = req.params;
 
-//   if (id) {
-//       sql = "SELECT * FROM places WHERE id = ?";
-//       queryParam = [id];
-//   } else if (city) {
-//       sql = "SELECT * FROM places WHERE city LIKE ?";
-//       queryParam = [`%${city}%`];
-//   } else {
-//       return res.status(400).json({ error: "Invalid request. Please provide an ID or city name." });
-//   }
+  if (!city) {
+      return res.status(400).json({ error: "City name is required." });
+  }
 
-//   db.query(sql, queryParam, (err, results) => {
-//       if (err) {
-//           return res.status(500).json({ error: "Database query failed", details: err.message });
-//       }
-//       if (results.length === 0) {
-//           return res.status(404).json({ message: "No data found for the given criteria." });
-//       }
-//       return res.status(200).json(results);
-//   });
-// };
+  const sql = "SELECT * FROM places WHERE city LIKE ?";
+  const queryParam = [`%${city}%`];
 
-// export const cityResult = async (req, res) => {
-//   const { city } = req.params;
-
-//   if (!city) {
-//       return res.status(400).json({ error: "City name is required." });
-//   }
-
-//   const sql = "SELECT * FROM places WHERE city LIKE ?";
-//   const queryParam = [`%${city}%`];
-
-//   db.query(sql, queryParam, (err, results) => {
-//       if (err) {
-//           return res.status(500).json({ error: "Database query failed", details: err.message });
-//       }
-//       if (results.length === 0) {
-//           return res.status(404).json({ message: "No data found for the given city." });
-//       }
-//       return res.status(200).json(results);
-//   });
-// };
-
-
+  db.query(sql, queryParam, (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: "Database query failed", details: err.message });
+      }
+      if (results.length === 0) {
+          return res.status(404).json({ message: "No data found for the given city." });
+      }
+      return res.status(200).json(results);
+  });
+};

@@ -15,13 +15,11 @@ import Blog from './components/Blog';
 import Admin from './components/Admin/AdminDashboard';
 import Profile from './components/Profile';
 import BookNow from './components/BookNow';
-import AddToCart from './components/AddToCart';
 import Experience from './components/Experience';
+import UpdatePlace from './components/UpdatePlace';
 
 
 function App() {
-
-  
 
   return (
    <BrowserRouter>
@@ -42,8 +40,10 @@ function App() {
     <Route path="/admin/*" element={<Admin />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/book-now/:id" element={<BookNow />} />
-    <Route path="/cart" element={<AddToCart />} />
     <Route path="/experience" element={<Experience />} />
+    <Route path="/update-place/:id" element={<UpdatePlace />} />
+
+
   
    </Routes>
    </BrowserRouter>

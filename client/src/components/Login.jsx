@@ -20,29 +20,26 @@ function Login() {
         const validationErrors = Validation(newValues);
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length > 0) {
-            return;
-        }
+        if (Object.keys(validationErrors).length > 0) return;
 
         try {
             const response = await axios.post("http://localhost:8000/api/auth/login", newValues);
             console.log("Response Data:", response.data);
 
             if (response.data.Login) {
-                toast.success("Login Successfully");
-
-                // Extracting user info from response
-                const user = {
-                    name: response.data.user.name,
-                    email: response.data.user.email,
-                    role: response.data.user.role
-                };
-
-                // Store in localStorage
-                localStorage.setItem("user", JSON.stringify(user));
-
-                // Navigate to profile
-                setTimeout(() => navigate("/"), 1000);
+                const token = response.data.token;
+                const user = response.data.user; // Assuming user info is returned in the response
+                
+                if (token && user) {
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('user', JSON.stringify(user));  // Store user data
+                    console.log('Token and user stored:', token, user);
+                } else {
+                    console.log('Token or user data is missing in the response');
+                }
+                
+                toast.success("Login Successful");
+                setTimeout(() => navigate("/"), 1000);  // Redirect to profile
             } else {
                 toast.error("No record found");
             }
@@ -53,48 +50,46 @@ function Login() {
     };
 
     return (
-        <>
-            <div className="login-page">
-                <div className="login-container">
-                    <h2>Login</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="email"><strong>Email</strong></label>
-                            <input
-                                type="text"
-                                placeholder="Enter email"
-                                autoComplete="off"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            {errors.email && <span className="error">{errors.email}</span>}
-                        </div>
+        <div className="login-page">
+            <div className="login-container">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email"><strong>Email</strong></label>
+                        <input
+                            type="text"
+                            placeholder="Enter email"
+                            autoComplete="off"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        {errors.email && <span className="error">{errors.email}</span>}
+                    </div>
 
-                        <div className="form-group">
-                            <label htmlFor="password"><strong>Password</strong></label>
-                            <input
-                                type="password"
-                                placeholder="Enter password"
-                                autoComplete="off"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            {errors.password && <span className="error">{errors.password}</span>}
-                        </div>
+                    <div className="form-group">
+                        <label htmlFor="password"><strong>Password</strong></label>
+                        <input
+                            type="password"
+                            placeholder="Enter password"
+                            autoComplete="off"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {errors.password && <span className="error">{errors.password}</span>}
+                    </div>
 
-                        <Link to="/forgot" className="forgot-password">Forgot Password?</Link>
+                    <Link to="/forgot" className="forgot-password">Forgot Password?</Link>
 
-                        <button type="submit" className="login-btn">Login</button>
-                    </form>
+                    <button type="submit" className="login-btn">Login</button>
+                </form>
 
-                    <p>Don't Have an Account?</p>
-                    <Link to="/register" className="register-btn-in-login">Register</Link>
-                </div>
-                <ToastContainer />
+                <p>Don't Have an Account?</p>
+                <Link to="/register" className="register-btn-in-login">Register</Link>
             </div>
-        </>
+            <ToastContainer />
+        </div>
     );
 }
 

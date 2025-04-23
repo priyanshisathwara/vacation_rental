@@ -18,7 +18,6 @@ const AdminRequestList = () => {
 
     const apiUrl = 'http://localhost:8000/api/admin/get_request';
 
-    // Make the API call
     axios
       .post(apiUrl, { status })
       .then((res) => {
@@ -89,10 +88,9 @@ const AdminRequestList = () => {
                   <th>Place Name</th>
                   <th>Location</th>
                   <th>Price</th>
-                  <th>Owner</th>
                   <th>City</th>
                   <th>Created At</th>
-                  <th>Actions</th>
+                  {statusFilter === 0 && <th>Actions</th>}
                 </tr>
               </thead>
               <tbody>
@@ -101,20 +99,22 @@ const AdminRequestList = () => {
                     <td>{place.place_name}</td>
                     <td>{place.location}</td>
                     <td>₹{place.price}</td>
-                    <td>{place.owner_name}</td>
                     <td>{place.city || 'Not Available'}</td>
                     <td>{new Date(place.created_at).toLocaleDateString()}</td>
-                    <td>
-                      <button onClick={() => handleApprove(place.id)} className="approve-btn">
-                        Approve
-                      </button>
-                      <button onClick={() => handleReject(place.id)} className="reject-btn">
-                        Reject
-                      </button>
-                    </td>
+                    {statusFilter === 0 && (
+                      <td>
+                        <button onClick={() => handleApprove(place.id)} className="approve-btn">
+                          Approve
+                        </button>
+                        <button onClick={() => handleReject(place.id)} className="reject-btn">
+                          Reject
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
+
             </table>
           ) : (
             <p>No places available</p>
