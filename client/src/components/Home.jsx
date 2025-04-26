@@ -57,6 +57,7 @@ const Home = () => {
           </div>
           <div className="destination-card">
             <img src="/src/assets/kutch.jpeg" alt="Mountains" />
+            <Link to='/kutch'>Kutch</Link>
             <p>Kutch</p>
           </div>
           <div className="destination-card">

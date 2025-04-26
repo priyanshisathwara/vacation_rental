@@ -208,7 +208,7 @@ export const searchData = async (req, res) => {
   const { query } = req.body;
   if (!query) return res.json([]); // Always return an array
 
-  const sql = "SELECT * FROM places WHERE LOWER(city) LIKE ?"; // Search by city
+  const sql = "SELECT * FROM places WHERE LOWER(city) LIKE ? "; // Search by city
   const searchValue = `%${query.toLowerCase()}%`;
 
   db.query(sql, [searchValue], (err, results) => {

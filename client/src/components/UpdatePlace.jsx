@@ -72,8 +72,11 @@ const UpdatePlace = () => {
         }
       );
 
+      console.log("Response data:", response.data);
       toast.success("Place update request submitted for admin approval.");
-      navigate(`/places`);
+      setTimeout(() => {
+        navigate(`/places`);
+      }, 5000);
     } catch (error) {
       console.error('Error updating place:', error);
       toast.error('Failed to submit update request.');

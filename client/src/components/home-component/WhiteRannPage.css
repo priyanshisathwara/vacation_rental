@@ -1,0 +1,50 @@
+.white-rann-container {
+    padding: 2.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fffefc;
+    color: #2c2c2c;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .white-rann-container h1 {
+    font-size: 2.8rem;
+    color: #00695c;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .intro {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  
+  .rann-section {
+    background-color: #f2fdfb;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 105, 92, 0.08);
+  }
+  
+  .rann-section h2 {
+    font-size: 1.8rem;
+    color: #00796b;
+    margin-bottom: 1rem;
+  }
+  
+  .rann-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 1rem;
+  }
+  
+  .rann-section strong {
+    color: #004d40;
+  }
+  

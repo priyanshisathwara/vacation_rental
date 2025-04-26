@@ -104,6 +104,7 @@ export const createBooking = async (req, res) => {
   });
 };
 
+
 // export const updatePlace = async (req, res) => {
 //   const { id } = req.params;
 //   const { placeName, location, price, city } = req.body; // Removed description

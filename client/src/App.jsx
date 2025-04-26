@@ -18,6 +18,13 @@ import BookNow from './components/BookNow';
 import Experience from './components/Experience';
 import UpdatePlace from './components/UpdatePlace';
 import StatueOfUnity from './components/home-component/StatueUnity';
+import KutchPage from './components/home-component/KutchPage';
+import WhiteRannPage from './components/home-component/WhiteRann';
+import KalaDungarPage from './components/home-component/KalaDungar';
+import BhujPage from './components/home-component/Bhuj';
+import MandviPage from './components/home-component/Mandavi';
+import KutchMuseumPage from './components/home-component/Kutchmuseum';
+
 
 
 function App() {
@@ -44,6 +51,18 @@ function App() {
     <Route path="/experience" element={<Experience />} />
     <Route path="/update-place/:id" element={<UpdatePlace />} />
     <Route path="/statue" element={<StatueOfUnity />} />
+    <Route path="/kutch" element={<KutchPage />} />
+    <Route path="/white-rann" element={<WhiteRannPage />} />
+    <Route path="/kala-dungar" element={<KalaDungarPage />} />
+    <Route path="/bhuj" element={<BhujPage />} />
+    <Route path="/mandavi-beach" element={<MandviPage />} />
+    <Route path="/kutch-museum" element={<KutchMuseumPage />} />
+
+    
+
+
+
+
 
 
 

@@ -89,6 +89,7 @@ const AdminRequestList = () => {
                   <th>Location</th>
                   <th>Price</th>
                   <th>City</th>
+                  <th>Image</th>
                   <th>Created At</th>
                   {statusFilter === 0 && <th>Actions</th>}
                 </tr>
@@ -100,17 +101,24 @@ const AdminRequestList = () => {
                     <td>{place.location}</td>
                     <td>₹{place.price}</td>
                     <td>{place.city || 'Not Available'}</td>
-                    <td>{new Date(place.created_at).toLocaleDateString()}</td>
-                    {statusFilter === 0 && (
-                      <td>
-                        <button onClick={() => handleApprove(place.id)} className="approve-btn">
-                          Approve
-                        </button>
-                        <button onClick={() => handleReject(place.id)} className="reject-btn">
-                          Reject
-                        </button>
+                    <td>
+                      <img
+                        src={`http://localhost:8000/uploads/${place.image}`}
+                        alt={place.place_name}
+                        style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }}
+                      />
                       </td>
-                    )}
+                      <td>{new Date(place.created_at).toLocaleDateString()}</td>
+                      {statusFilter === 0 && (
+                        <td>
+                          <button onClick={() => handleApprove(place.id)} className="approve-btn">
+                            Approve
+                          </button>
+                          <button onClick={() => handleReject(place.id)} className="reject-btn">
+                            Reject
+                          </button>
+                        </td>
+                      )}
                   </tr>
                 ))}
               </tbody>
