@@ -36,14 +36,6 @@ const PlacesList = () => {
     setFilteredPlaces(filtered);
   };
 
-  const getPlacesByType = (type) => {
-    return filteredPlaces.filter((place) =>
-      place.place_name.toLowerCase().includes(type)
-    );
-  };
-
-  const placeTypes = ["farm", "lake", "beach", "villa"];
-
   if (loading) return <h2 className="loading">Loading places...</h2>;
   if (error) return <h2 className="error">{error}</h2>;
 
@@ -63,44 +55,34 @@ const PlacesList = () => {
       <SearchBar onSearch={handleSearch} />
 
       <div className="container">
-        {placeTypes.map((type) => {
-          const placesByType = getPlacesByType(type);
-          return (
-            placesByType.length > 0 && (
-              <div key={type} className="place-category-section">
-                <h2 className="place-category-title">{type.charAt(0).toUpperCase() + type.slice(1)} Homes</h2>
-                <div className="grid">
-                  {placesByType.map((place) => (
-                    <div key={place.id} className="card">
-                      <img
-                        src={`http://localhost:8000/uploads/${place.image}`}
-                        alt={place.place_name}
-                        className="card-image"
-                      />
-                      <div className="card-content">
-                        <h3>{place.place_name}</h3>
-                        <p><strong>Location:</strong> {place.location}</p>
-                        <p><strong>City:</strong> {place.city}</p>
-                        <p><strong>Price:</strong> ₹{place.price}</p>
-                        <p className="date"><strong>Added on:</strong> {new Date(place.created_at).toLocaleDateString()}</p>
-                        <div className="card-buttons">
-                          <Link to={`/book-now/${place.id}`} className="book-now-btn">
-                            Book Now
-                          </Link>
-                          {user && user.role === "owner" && (
-                            <Link to={`/update-place/${place.id}`} className="add-to-cart-btn">
-                              Update Place
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+        <div className="grid">
+          {filteredPlaces.map((place) => (
+            <div key={place.id} className="card">
+              <img
+                src={`http://localhost:8000/uploads/${place.image}`}
+                alt={place.place_name}
+                className="card-image"
+              />
+              <div className="card-content">
+                <h3>{place.place_name}</h3>
+                <p><strong>Location:</strong> {place.location}</p>
+                <p><strong>City:</strong> {place.city}</p>
+                <p><strong>Price:</strong> ₹{place.price}</p>
+                <p className="date"><strong>Added on:</strong> {new Date(place.created_at).toLocaleDateString()}</p>
+                <div className="card-buttons">
+                  <Link to={`/book-now/${place.id}`} className="book-now-btn">
+                    Book Now
+                  </Link>
+                  {user && user.role === "owner" && (
+                    <Link to={`/update-place/${place.id}`} className="add-to-cart-btn">
+                      Update Place
+                    </Link>
+                  )}
                 </div>
               </div>
-            )
-          );
-        })}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

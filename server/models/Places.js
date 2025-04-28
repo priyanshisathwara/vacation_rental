@@ -1,6 +1,7 @@
 import db from "../config/db.js";
 import express from "express";
 
+
 const app = express();
 app.use(express.json());
 
@@ -11,6 +12,10 @@ export const createPlace = (req, res) => {
 
     const { place_name, location, price, city } = req.body;
     const image = req.file ? req.file.filename : null;
+    const owner =  req.user.name;
+
+    console.log("User from token:", req.user);
+
 
     // Convert price to Number
     const numericPrice = parseFloat(price);
@@ -37,7 +42,6 @@ export const createPlace = (req, res) => {
       const averagePrice = parseFloat(result[0].average_price);
       console.log(`Average price for ${city}:`, averagePrice);
 
-      // Validate Price (Allow ±10% variation)
       const lowerBound = averagePrice * 0.9;
       const upperBound = averagePrice * 1.1;
 
@@ -49,15 +53,16 @@ export const createPlace = (req, res) => {
         });
       }
 
-      // Insert the new place into the database (owner_name removed)
       const sqlPlace = `
-        INSERT INTO places (place_name, location, price, city, image, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
+        INSERT INTO places (is_approved, place_name, location, price, city, owner_name, image, created_at, updated_at)
+        VALUES (false, ?, ?, ?, ?, ?, ?, NOW(), NOW())`;
 
-      db.query(sqlPlace, [place_name, location, numericPrice, city, image], (err, result) => {
+      db.query(sqlPlace, [place_name, location, numericPrice, city,owner, image], (err, result) => {
         if (err) {
           return res.status(500).json({ error: "Error inserting place", details: err.message });
         }
+        console.log("Inserting data into DB:", { place_name, location, numericPrice, city, owner, image });
+
 
         return res.status(201).json({
           message: "Place added successfully",

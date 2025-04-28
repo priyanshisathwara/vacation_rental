@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './BookNow.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +13,16 @@ const BookNow = () => {
   const [guests, setGuests] = useState(1);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [userName, setUserName] = useState('');
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      toast.error('You must login first!');
+      navigate('/login');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPlaceData = async () => {

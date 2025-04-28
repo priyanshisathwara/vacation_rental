@@ -25,12 +25,17 @@ const Home = () => {
     navigate("/add-places");
   };
 
+  const handleOwnerDashboard = () => {
+    // Navigate to the Owner Dashboard page
+    navigate('/owner-dashboard');
+  };
+
   return (
     <div>
       <div className='home-container'>
         <Navbar />
         <div className="search-bar-container">
-          <SearchBar /> 
+          <SearchBar />
         </div>
         <div className="home-text">
           <h3>Welcome To</h3>
@@ -45,7 +50,16 @@ const Home = () => {
           <div className="owner-card-text">Add Your Property</div>
           <div className="card-quote">"Turn your space into someone’s next dream stay!"</div>
         </div>
-        
+
+
+      )}
+
+      {isOwner && (
+        <div className="owner-dashboard-container">
+          <button onClick={handleOwnerDashboard} className="owner-dashboard-btn">
+            Go to Owner Dashboard
+          </button>
+        </div>
       )}
       {/* Popular Destinations */}
       <section className="popular-destinations">

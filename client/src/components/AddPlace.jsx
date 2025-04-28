@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./AddPlace.css";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,8 +12,26 @@ export default function AddPlace() {
     location: '',
     price: '',
     city: '',
-    image: null
+    image: null,
   });
+
+  const [ownerName, setOwnerName] = useState("");
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user"); 
+    console.log("Stored user from localStorage:", storedUser);  // Get the user object from localStorage
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser); 
+      console.log("Parsed user:", user); 
+      setOwnerName(user.name);  // Set the owner name
+    } else {
+      console.error("User data not found in localStorage");
+      // Optional: Handle when user data is not found
+      setOwnerName("Guest");
+    }
+  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +67,14 @@ export default function AddPlace() {
     formDataToSend.append("city", formData.city);
     formDataToSend.append("image", imageFile);
 
+    const token = localStorage.getItem("token");
+    console.log("Token extracted:", token);
+
+    if (!token) {
+      toast.error("No authentication token found");
+      return;
+    }
+
     console.log("Submitting Form Data:", formDataToSend);
 
     for (let pair of formDataToSend.entries()) {
@@ -57,13 +83,17 @@ export default function AddPlace() {
 
     try {
       const response = await axios.post('http://localhost:8000/api/admin/create-place', formDataToSend, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`,
+        },
       });
 
       if (response.status === 201) {
-        toast.success("Place added successfully!");
-        setTimeout(() => navigate("/places"), 1000);
+        toast.success("Place added successfully! Wait for admin Approval");
+        setTimeout(() => navigate("/places"), 4000);
         setFormData({ place_name: '', location: '', price: '', city: '', image: null });
+        setOwnerName("");
       }
 
     } catch (error) {

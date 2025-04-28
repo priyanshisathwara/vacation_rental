@@ -24,6 +24,8 @@ import KalaDungarPage from './components/home-component/KalaDungar';
 import BhujPage from './components/home-component/Bhuj';
 import MandviPage from './components/home-component/Mandavi';
 import KutchMuseumPage from './components/home-component/Kutchmuseum';
+import OwnerRequestList from './components/Owner/OwnerRequestList';
+import OwnerDashboard from './components/Owner/OwnerDashboard';
 
 
 
@@ -57,7 +59,9 @@ function App() {
     <Route path="/bhuj" element={<BhujPage />} />
     <Route path="/mandavi-beach" element={<MandviPage />} />
     <Route path="/kutch-museum" element={<KutchMuseumPage />} />
-
+    <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+    <Route path="/owner-request-list" element={<OwnerRequestList />} />
+    
     
 
 

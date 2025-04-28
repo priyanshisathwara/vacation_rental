@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './AdminRequestList.css';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AdminRequestList = () => {
   const [placesData, setPlacesData] = useState([]);
@@ -48,6 +51,7 @@ const AdminRequestList = () => {
       })
       .then((response) => {
         console.log(response.data);
+        toast.success('Place has been approved!');
         setPlacesData(placesData.filter((place) => place.id !== id));
       })
       .catch((err) => {
@@ -64,6 +68,7 @@ const AdminRequestList = () => {
       .then((response) => {
         console.log(response.data);
         setPlacesData(placesData.filter((place) => place.id !== id));
+        toast.error('Place has been rejected!');
       })
       .catch((err) => {
         console.error("Error rejecting place:", err.response || err.message);
@@ -129,6 +134,7 @@ const AdminRequestList = () => {
           )}
         </div>
       }
+      <ToastContainer />
     </div>
   );
 }

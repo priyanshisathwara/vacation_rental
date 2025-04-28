@@ -59,25 +59,52 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO register (name, email, password, role) VALUES (?, ?, ?, ?)";
-
-    db.query(sql, [name, email, hashedPassword, role], (err, result) => {
+    // First check if user already exists
+    const checkSql = "SELECT * FROM register WHERE email = ?";
+    db.query(checkSql, [email], async (err, results) => {
       if (err) {
-        if (err.code === "ER_DUP_ENTRY") {
-          return res.status(400).json({ error: "Email already exists" });
-        }
-        return res.status(500).json({ error: "Error inserting user", details: err.message });
+        return res.status(500).json({ error: "Database error", details: err.message });
+      }
+      if (results.length > 0) {
+        return res.status(400).json({ error: "User already exists" });
       }
 
-      return res.status(201).json({ message: "User registered successfully", user: { name, email, role } });
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Insert new user
+      const insertSql = "INSERT INTO register (name, email, password, role) VALUES (?, ?, ?, ?)";
+      db.query(insertSql, [name, email, hashedPassword, role], (insertErr, insertResult) => {
+        if (insertErr) {
+          return res.status(500).json({ error: "Error inserting user", details: insertErr.message });
+        }
+
+        // Create JWT token
+        const token = jwt.sign(
+          { user: { id: insertResult.insertId, name, role } }, // insertId will be the newly created user id
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+        );
+
+        // Send back response
+        res.status(201).json({
+          message: "User registered successfully!",
+          token,
+          user: {
+            id: insertResult.insertId,
+            name,
+            email,
+            role,
+          },
+        });
+      });
     });
 
   } catch (error) {
+    console.error("Error during registration:", error);
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
-
 
 export const verifyOtp = async (req, res) => {
  const {enteredOTP, email} = req.body;

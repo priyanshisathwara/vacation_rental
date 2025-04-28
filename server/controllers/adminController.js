@@ -3,7 +3,9 @@ import db from "../config/db.js";
 
 
 export const addPlace = async (req, res) => {
-  const { place_name, location, price, role } = req.body;
+  const { place_name, location, price } = req.body; 
+  const { name, role } = req.user; 
+  
 
   if (role !== "owner") {
     return res.status(403).json({ error: "Access denied. Only owners can add properties." });
@@ -16,11 +18,34 @@ export const addPlace = async (req, res) => {
   console.log("Creating place...");
 
   try {
-    await createPlace(place_name, location, price); // Removed owner_name
+    await createPlace(place_name, location, price, name); // Use name as ownerName
     return res.json({ message: 'Successfully Created' });
   } catch (error) {
     console.error("Error creating place:", error);
     return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getPlacesForOwner = async (req, res) => {
+  try {
+    const ownerName = req.user.name; // Assuming `name` is stored in the JWT
+
+    // SQL query to get places for the logged-in owner
+    const sql = "SELECT * FROM places WHERE owner_name = ? ORDER BY created_at DESC";
+
+    db.query(sql, [ownerName], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "Error fetching places", details: err.message });
+      }
+
+      if (result.length === 0) {
+        return res.status(404).json({ message: "No places found for this owner" });
+      }
+
+      return res.status(200).json({ message: "Owner's places fetched successfully", data: result });
+    });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
 

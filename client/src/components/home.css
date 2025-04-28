@@ -202,6 +202,33 @@ section h3 {
   color: #333;
 }
 
+.owner-dashboard-btn {
+  background: rgb(21, 120, 150); /* Blue background color */
+  color: white; /* White text color */
+  padding: 12px 24px; /* Padding around the text */
+  font-size: 16px; /* Font size for the text */
+  font-weight: bold; /* Bold text */
+  border: none; /* Remove the border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Cursor changes to a pointer on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.owner-dashboard-btn:hover {
+  background: rgb(6, 73, 93); /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly grow the button on hover */
+}
+
+.owner-dashboard-btn:focus {
+  outline: none; /* Remove outline on focus */
+}
+
+.owner-dashboard-btn:active {
+  background-color: #003d80; /* Even darker blue when clicked */
+  transform: scale(1); /* Reset the scale on click */
+}
+
+
 .o-add-property-card {
   margin-top: 20px;
   display: flex;
