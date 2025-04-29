@@ -58,8 +58,6 @@ export const registerUser = async (req, res) => {
     if (!name || !email || !password || !role) {
       return res.status(400).json({ error: "All fields are required" });
     }
-
-    // First check if user already exists
     const checkSql = "SELECT * FROM register WHERE email = ?";
     db.query(checkSql, [email], async (err, results) => {
       if (err) {
@@ -81,7 +79,7 @@ export const registerUser = async (req, res) => {
 
         // Create JWT token
         const token = jwt.sign(
-          { user: { id: insertResult.insertId, name, role } }, // insertId will be the newly created user id
+          { user: { id: insertResult.insertId, name, role } }, 
           process.env.JWT_SECRET,
           { expiresIn: '1h' }
         );

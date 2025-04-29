@@ -194,7 +194,7 @@ const BookNow = () => {
             ))}
           </select>
 
-          <button type="submit" className="book-now-button">Pay & Book Now</button>
+          <button type="submit" className="book-now-button">Book Now</button>
         </form>
       )}
       <ToastContainer />

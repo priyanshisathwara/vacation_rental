@@ -11,6 +11,20 @@ const OwnerRequestList = () => {
     fetchOwnerPlaces();
   }, []);
 
+  const getStatus = (isApproved) => {
+    switch (isApproved) {
+      case 0:
+        return "Pending";
+      case 1:
+        return "Accepted";
+      case 2:
+        return "Rejected";
+      default:
+        return "Unknown";
+    }
+  };
+
+  
   const fetchOwnerPlaces = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/admin/owner-places', {
@@ -20,6 +34,8 @@ const OwnerRequestList = () => {
       });
 
       const ownerPlaces = response.data.data;
+      console.log('Owner Places Response:', ownerPlaces);
+
       setPlaces(ownerPlaces);
     } catch (error) {
       console.error('Error fetching owner places:', error);
@@ -37,16 +53,25 @@ const OwnerRequestList = () => {
           {places.map((place) => (
             <div key={place.id} className="place-card">
               <img
-               src={`http://localhost:8000/uploads/${place.image}`}
+                src={`http://localhost:8000/uploads/${place.image}`}
                 alt={place.place_name}
                 className="place-image"
               />
               <h3>{place.place_name}</h3>
-              <p>Status: <span className={`status ${place.status}`}>{place.status}</span></p>
+
+              {/* Status */}
+              <div className="property-status">
+  Status: <span className={`status-label ${getStatus(place.is_approved).toLowerCase()}`}>
+    {getStatus(place.is_approved)}
+  </span>
+</div>
+
+
               <p>Location: {place.city}</p>
               <p>Price: ₹{place.price} /night</p>
             </div>
           ))}
+
         </div>
       )}
     </div>

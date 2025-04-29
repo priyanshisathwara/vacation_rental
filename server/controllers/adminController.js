@@ -28,9 +28,7 @@ export const addPlace = async (req, res) => {
 
 export const getPlacesForOwner = async (req, res) => {
   try {
-    const ownerName = req.user.name; // Assuming `name` is stored in the JWT
-
-    // SQL query to get places for the logged-in owner
+    const ownerName = req.user.name; 
     const sql = "SELECT * FROM places WHERE owner_name = ? ORDER BY created_at DESC";
 
     db.query(sql, [ownerName], (err, result) => {
@@ -108,7 +106,6 @@ export const placeResult = async (req, res) => {
 export const createBooking = async (req, res) => {
   const { placeId, checkInDate, checkOutDate, guests, userName } = req.body;
 
-  // Validate required fields
   if (!placeId || !checkInDate || !checkOutDate || !guests) {
     return res.status(400).json({ error: "All booking fields are required." });
   }
@@ -130,54 +127,12 @@ export const createBooking = async (req, res) => {
 };
 
 
-// export const updatePlace = async (req, res) => {
-//   const { id } = req.params;
-//   const { placeName, location, price, city } = req.body; // Removed description
-//   const loggedInUser = req.user.name; // Assuming user is stored in session or JWT token
-
-//   // Get the place details to check if the logged-in user is the owner
-//   const checkPlaceQuery = 'SELECT * FROM places WHERE id = ?';
-  
-//   db.query(checkPlaceQuery, [id], (err, results) => {
-//     if (err) {
-//       console.error('Error fetching place details:', err);
-//       return res.status(500).json({ error: 'Failed to fetch place details' });
-//     }
-
-//     if (results.length === 0) {
-//       return res.status(404).json({ message: 'Place not found' });
-//     }
-
-//     const place = results[0];
-
-//     // Check if the logged-in user is the owner of the place
-//     if (place.owner_name !== loggedInUser) {
-//       return res.status(403).json({ message: 'You are not authorized to update this place.' });
-//     }
-
-//     // If the owner matches, proceed with the update
-//     const updateQuery = `
-//       UPDATE places
-//       SET place_name = ?, location = ?, price = ?, city = ?
-//       WHERE id = ?
-//     `;
-    
-//     db.query(updateQuery, [placeName, location, price, city, id], (err, result) => {
-//       if (err) {
-//         console.error('Error updating place:', err);
-//         return res.status(500).json({ error: 'Failed to update place' });
-//       }
-
-//       res.status(200).json({ message: 'Place updated successfully' });
-//     });
-//   });  
-// }
 
 export const updatePlace = async (req, res) => {
   const { id } = req.params;
   const { placeName, price, location, city, is_approved = 0 } = req.body;
   const userId = req.user?.id;
-  const image = req.file?.filename; // Assuming multer stores uploaded file as req.file
+  const image = req.file?.filename; 
 
   const checkPlaceQuery = 'SELECT * FROM places WHERE id = ?';
 

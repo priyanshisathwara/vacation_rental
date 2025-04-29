@@ -123,3 +123,27 @@
     background-color: #ddd;
   }
   
+  .property-status {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+  
+  .status-label {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #4CAF50;
+  }
+  
+  .status-label.pending {
+    color: orange;
+  }
+  
+  .status-label.accepted {
+    color: green;
+  }
+  
+  .status-label.rejected {
+    color: red;
+  }
+  
