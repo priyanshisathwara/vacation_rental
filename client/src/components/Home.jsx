@@ -72,11 +72,10 @@ const Home = () => {
           <div className="destination-card">
             <img src="/src/assets/kutch.jpeg" alt="Mountains" />
             <Link to='/kutch'>Kutch</Link>
-            <p>Kutch</p>
           </div>
           <div className="destination-card">
             <img src="/src/assets/DonHill.jpeg" alt="Lake" />
-            <p>Saputara</p>
+            <Link to='/saputara'>Saputara</Link>
           </div>
         </div>
       </section>
@@ -87,15 +86,15 @@ const Home = () => {
         <div className="experience-cards">
           <div className="experience-card">
             <img src="/src/assets/spa.webp" alt="Spa" />
-            <p>Luxury Spa</p>
+            <Link to='/spa'>Luxury Spa</Link>
           </div>
           <div className="experience-card">
             <img src="/src/assets/hik.jpeg" alt="Hiking" />
-            <p>Mountain Hiking</p>
+         <Link to='/hiking'>Mountain Hiking</Link>
           </div>
           <div className="experience-card">
             <img src="/src/assets/cusine.avif" alt="Local Food" />
-            <p>Local Cuisine</p>
+            <Link to='/cusine'>Local Cuisine</Link>
           </div>
         </div>
       </section>

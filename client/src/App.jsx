@@ -26,6 +26,13 @@ import MandviPage from './components/home-component/Mandavi';
 import KutchMuseumPage from './components/home-component/Kutchmuseum';
 import OwnerRequestList from './components/Owner/OwnerRequestList';
 import OwnerDashboard from './components/Owner/OwnerDashboard';
+import ContactUs from './components/ContactUs';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import Saputara from './components/home-component/Saputara';
+import LuxurySpa from './components/home-component/LuxurySpa';
+import HikingInGujarat from './components/home-component/HikingInGujarat';
+import LocalCuisineInGujarat from './components/home-component/LocalCuisineInGujarat';
 
 
 
@@ -59,8 +66,17 @@ function App() {
     <Route path="/bhuj" element={<BhujPage />} />
     <Route path="/mandavi-beach" element={<MandviPage />} />
     <Route path="/kutch-museum" element={<KutchMuseumPage />} />
+    <Route path='/saputara' element={<Saputara/>} />
     <Route path="/owner-dashboard" element={<OwnerDashboard />} />
     <Route path="/owner-request-list" element={<OwnerRequestList />} />
+    <Route path="/contact-us" element={<ContactUs />} />
+    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+    <Route path="/terms-of-service" element={<TermsOfService />} />
+    <Route path="/spa" element={<LuxurySpa />} />
+    <Route path="/hiking" element={<HikingInGujarat />} />
+    <Route path="/cusine" element={<LocalCuisineInGujarat />} />
+
+
     
     
 

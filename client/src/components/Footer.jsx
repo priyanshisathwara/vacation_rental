@@ -1,5 +1,6 @@
 import React from 'react';
-import './Footer.css'; // Make sure to import the CSS
+import './Footer.css';
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -7,7 +8,6 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-links">
           <ul>
-            <li><a href="/about-us">About Us</a></li>
             <li><a href="/contact-us">Contact Us</a></li>
             <li><a href="/privacy-policy">Privacy Policy</a></li>
             <li><a href="/terms-of-service">Terms of Service</a></li>
@@ -16,13 +16,13 @@ const Footer = () => {
 
         <div className="footer-social">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-            <i className="fab fa-facebook-f"></i>
+            <FaFacebookF />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-            <i className="fab fa-twitter"></i>
+            <FaTwitter />
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-            <i className="fab fa-instagram"></i>
+            <FaInstagram />
           </a>
         </div>
 

@@ -121,8 +121,62 @@ section h3 {
   color: #333;
 }
 
+/* Flex container for destination cards */
+.destination-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* Individual destination card style */
+.destination-card {
+  width: 430px; /* Matches the experience card's width */
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+}
+
+.destination-card img {
+  width: 100%;
+  height: 300px; /* Matches the height of the experience card */
+  object-fit: cover;
+}
+
+.destination-card a {
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0f1211;
+  transition: color 0.3s ease;
+}
+
+.destination-card a:hover {
+  color: #0691d2;
+  text-decoration: underline;
+}
+
+/* Optional: If you want to add a description or text block similar to experience cards */
+.destination-card p {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #444;
+}
+
+
 /* Card container */
-.destination-cards,
 .experience-cards {
   display: flex;
   justify-content: center;
@@ -131,7 +185,6 @@ section h3 {
 }
 
 /* Individual card style */
-.destination-card,
 .experience-card {
   width: 430px;
   background-color: #fff;
@@ -142,19 +195,32 @@ section h3 {
   transition: transform 0.3s ease;
 }
 
-.destination-card:hover,
 .experience-card:hover {
   transform: translateY(-5px);
 }
 
-.destination-card img,
+.experience-card a {
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0f1211;
+  transition: color 0.3s ease;
+}
+
+.experience-card a:hover {
+  color: #0691d2;
+  text-decoration: underline;
+}
+
 .experience-card img {
   width: 100%;
   height: 300px;
   object-fit: cover;
 }
 
-.destination-card p,
 .experience-card p {
   padding: 1rem;
   font-size: 1.1rem;
