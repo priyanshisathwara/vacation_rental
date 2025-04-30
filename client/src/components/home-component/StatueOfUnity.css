@@ -1,0 +1,72 @@
+.sou-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #f4f9fc;
+  }
+  
+  .sou-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sou-header h1 {
+    font-size: 36px;
+    color: #145374;
+  }
+  
+  .sou-header p {
+    font-size: 18px;
+    color: #4b4b4b;
+  }
+  
+  .sou-hero {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sou-image {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sou-info,
+  .sou-attractions,
+  .sou-activities {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sou-info h2,
+  .sou-attractions h2,
+  .sou-activities h2 {
+    color: #247b97;
+    margin-bottom: 10px;
+  }
+  
+  .sou-info p,
+  .sou-activities p,
+  .sou-attractions ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .sou-attractions ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .sou-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #145374;
+  }
+  

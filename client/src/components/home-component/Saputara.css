@@ -1,0 +1,74 @@
+.saputara-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 2rem;
+    background-color: #f9fdfc;
+    border-radius: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #2d3436;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .saputara-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .saputara-header h1 {
+    font-size: 2.5rem;
+    color: rgb(21, 120, 150);
+  }
+  
+  .saputara-header p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .saputara-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .saputara-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  .saputara-info,
+  .saputara-attractions,
+  .saputara-activities {
+    margin-bottom: 2rem;
+  }
+  
+  .saputara-info h2,
+  .saputara-attractions h2,
+  .saputara-activities h2 {
+    color:rgb(21, 120, 150);
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .saputara-info p,
+  .saputara-activities p {
+    color: #444;
+    line-height: 1.6;
+  }
+  
+  .saputara-attractions ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    color: #444;
+  }
+  
+  .saputara-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    font-weight: 500;
+    color: #2d3436;
+  }
+  

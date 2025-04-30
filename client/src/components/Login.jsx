@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import Validation from './LoginValidation';
@@ -14,23 +14,32 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const newValues = { email, password };
 
         const validationErrors = Validation(newValues);
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length > 0) {
-            return;
-        }
+        if (Object.keys(validationErrors).length > 0) return;
 
         try {
             const response = await axios.post("http://localhost:8000/api/auth/login", newValues);
             console.log("Response Data:", response.data);
 
             if (response.data.Login) {
-                toast.success("Login Successfully");
-                setTimeout(() => navigate("/"), 1000);
+                const token = response.data.token;
+                const user = response.data.user; // Assuming user info is returned in the response
+                
+                if (token && user) {
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('user', JSON.stringify(user));  // Store user data
+                    console.log('Token and user stored:', token, user);
+                } else {
+                    console.log('Token or user data is missing in the response');
+                }
+                
+                toast.success("Login Successful");
+                setTimeout(() => navigate("/"), 1000);  // Redirect to profile
             } else {
                 toast.error("No record found");
             }
@@ -41,8 +50,7 @@ function Login() {
     };
 
     return (
-        <>
-           <div className="login-page">
+        <div className="login-page">
             <div className="login-container">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
@@ -82,7 +90,6 @@ function Login() {
             </div>
             <ToastContainer />
         </div>
-        </>
     );
 }
 

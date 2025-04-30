@@ -9,6 +9,13 @@
     position: relative;
 }
 
+/* Wrapper to bind input and dropdown widths */
+.search-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+
 /* Search Input Container */
 .search-input-div {
     display: flex;
@@ -18,6 +25,7 @@
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* <-- Add this */
 }
 
 /* Input Field */
@@ -40,41 +48,42 @@
     color: #f9f1f1;
     background-color: #247b97;
     border-radius: 50%;
-    width: 32px;  /* Optional: Set width */
-    height: 32px; 
+    width: 32px;
+    height: 32px;
+    transition: background-color 0.2s ease; /* Added smooth hover effect */
 }
 
-
+.search-icon:hover {
+    background-color: #1e5a6a; /* Slightly darker shade on hover */
+}
 
 /* Search Results Dropdown */
 .search-result {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    max-height: 250px;
-    overflow-y: auto;
-    z-index: 10;
+    right: 0;
+    background-color: #f3eded;
+    color: black;
+    z-index: 1;
     margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
     display: none;
 }
 
 /* Show results when there's data */
-.search-section:hover .search-result {
-    display: block;
+.search-section .search-result {
+    display: block; /* Show only if searchData exists */
 }
 
 /* Search Result Item */
 .search-suggestion-line {
-    display: block;
     padding: 10px;
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
 }
 
 /* Hover Effect on Result Items */
@@ -83,5 +92,14 @@
 }
 
 .search-suggestion-line.active {
-    background: #f0f0f0;
+    background-color: #247a9771;
+}
+
+/* Adjust spacing of result list */
+.search-result .search-suggestion-line {
+    border-bottom: 1px solid #e0e0e0; /* Add border between results */
+}
+
+.search-result .search-suggestion-line:last-child {
+    border-bottom: none; /* Remove border from the last item */
 }

@@ -150,3 +150,87 @@
   background: #0b728fd1;
   color: white;
 }
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon {
+  font-size: 30px;
+  color: #247b97; 
+  cursor: pointer;
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-link-detail {
+    display: none;
+  }
+  
+  .nav-link-detail.active {
+    display: flex;
+    justify-content: center;
+    background-color: #f5f2f2;
+    padding: 1.5rem 2rem;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-links li {
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
+
+/* Optional link styling */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+  
+  .nav-actions {
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: flex-start;
+  }
+
+  .register-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background: rgb(21, 120, 150);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .register-btn:hover {
+    background-color: #2980b9;
+  }
+}

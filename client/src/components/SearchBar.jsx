@@ -21,12 +21,9 @@ export default function SearchBar() {
         setSelectedItem(-1);  // ✅ Fixed
     };
 
-    console.log("Selected Item Index:", selectedItem);
-    console.log("Selected Item Data:", searchData[selectedItem]);
-
     const handleKeyDown = (e) => {
-        if (searchData.length === 0) return; 
-    
+        if (searchData.length === 0) return;
+
         if (e.key === "ArrowUp") {
             setSelectedItem(prev => Math.max(prev - 1, 0)); // Prevent going below 0
         } else if (e.key === "ArrowDown") {
@@ -37,14 +34,14 @@ export default function SearchBar() {
             }
         }
     };
-    
+
 
     const handleCityClick = (city) => {
         if (!city) {
             console.error("Invalid city data:", city);
             return;
         }
-    
+
         // Navigate to city result page using only city name
         if (city.city) {
             console.log("City clicked:", city);
@@ -52,10 +49,10 @@ export default function SearchBar() {
         } else {
             console.error("City data is missing the 'city' field:", city);
         }
-        setSearch(""); 
-        setSearchData([]); 
+        setSearch("");
+        setSearchData([]);
     };
-    
+
 
     useEffect(() => {
         if (search.trim() === "") {
@@ -65,7 +62,10 @@ export default function SearchBar() {
 
         axios.post("http://localhost:8000/api/auth/search", { query: search })
             .then((res) => {
-                setSearchData(Array.isArray(res.data) ? res.data : []);
+                // Remove duplicate city names
+                const uniqueCities = Array.from(new Set(res.data.map(item => item.city)))
+                    .map(city => res.data.find(item => item.city === city));
+                setSearchData(uniqueCities); // Set unique cities
             })
             .catch(err => {
                 console.error("Error fetching search results:", err);
@@ -76,36 +76,40 @@ export default function SearchBar() {
 
     return (
         <section className='search-section'>
-            <div className='search-input-div'>
-                <input
-                    type='text'
-                    className='search-input'
-                    placeholder='Search...'
-                    autoComplete='off'
-                    onChange={handleChange}
-                    value={search}
-                    onKeyDown={handleKeyDown}
-                />
-                <div className='search-icon'>
-                    {search === "" ? (
-                        <AiOutlineSearch size={24} color="#FFFFFF" />
-                    ) : (
-                        <AiOutlineClose size={24} color="#FFFFFF" onClick={handleClose} />
-                    )}
+            <div className='search-wrapper'>
+                <div className='search-input-div'>
+                    <input
+                        type='text'
+                        className='search-input'
+                        placeholder='Search...'
+                        autoComplete='off'
+                        onChange={handleChange}
+                        value={search}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <div className='search-icon'>
+                        {search === "" ? (
+                            <AiOutlineSearch size={24} color="#FFFFFF" />
+                        ) : (
+                            <AiOutlineClose size={24} color="#FFFFFF" onClick={handleClose} />
+                        )}
+                    </div>
                 </div>
-            </div>
 
-            {searchData.length > 0 && (
-                <div className="search-result">
-                    {searchData.map((data, index) => (
-                        <div key={index}
-                            onClick={() => handleCityClick(data)}
-                            className={selectedItem === index ? 'search-suggestion-line active' : 'search-suggestion-line'}>
-                            {data.city}
-                        </div>
-                    ))}
-                </div>
-            )}
+                {searchData.length > 0 && (
+                    <div className="search-result">
+                        {searchData.map((data, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleCityClick(data)}
+                                className={selectedItem === index ? 'search-suggestion-line active' : 'search-suggestion-line'}>
+                                {data.city}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </section>
+
     );
 }

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './AdminRequestList.css';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AdminRequestList = () => {
   const [placesData, setPlacesData] = useState([]);
@@ -18,7 +21,6 @@ const AdminRequestList = () => {
 
     const apiUrl = 'http://localhost:8000/api/admin/get_request';
 
-    // Make the API call
     axios
       .post(apiUrl, { status })
       .then((res) => {
@@ -49,6 +51,7 @@ const AdminRequestList = () => {
       })
       .then((response) => {
         console.log(response.data);
+        toast.success('Place has been approved!');
         setPlacesData(placesData.filter((place) => place.id !== id));
       })
       .catch((err) => {
@@ -65,6 +68,7 @@ const AdminRequestList = () => {
       .then((response) => {
         console.log(response.data);
         setPlacesData(placesData.filter((place) => place.id !== id));
+        toast.error('Place has been rejected!');
       })
       .catch((err) => {
         console.error("Error rejecting place:", err.response || err.message);
@@ -89,10 +93,10 @@ const AdminRequestList = () => {
                   <th>Place Name</th>
                   <th>Location</th>
                   <th>Price</th>
-                  <th>Owner</th>
                   <th>City</th>
+                  <th>Image</th>
                   <th>Created At</th>
-                  <th>Actions</th>
+                  {statusFilter === 0 && <th>Actions</th>}
                 </tr>
               </thead>
               <tbody>
@@ -101,26 +105,36 @@ const AdminRequestList = () => {
                     <td>{place.place_name}</td>
                     <td>{place.location}</td>
                     <td>₹{place.price}</td>
-                    <td>{place.owner_name}</td>
                     <td>{place.city || 'Not Available'}</td>
-                    <td>{new Date(place.created_at).toLocaleDateString()}</td>
                     <td>
-                      <button onClick={() => handleApprove(place.id)} className="approve-btn">
-                        Approve
-                      </button>
-                      <button onClick={() => handleReject(place.id)} className="reject-btn">
-                        Reject
-                      </button>
-                    </td>
+                      <img
+                        src={`http://localhost:8000/uploads/${place.image}`}
+                        alt={place.place_name}
+                        style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }}
+                      />
+                      </td>
+                      <td>{new Date(place.created_at).toLocaleDateString()}</td>
+                      {statusFilter === 0 && (
+                        <td>
+                          <button onClick={() => handleApprove(place.id)} className="approve-btn">
+                            Approve
+                          </button>
+                          <button onClick={() => handleReject(place.id)} className="reject-btn">
+                            Reject
+                          </button>
+                        </td>
+                      )}
                   </tr>
                 ))}
               </tbody>
+
             </table>
           ) : (
             <p>No places available</p>
           )}
         </div>
       }
+      <ToastContainer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import db from "../config/db.js";
 import { Mail } from "../config/mailer.js";
+import jwt from 'jsonwebtoken';
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -13,7 +14,33 @@ export const loginUser = async (req, res) => {
       const result = await bcrypt.compare(password, data[0]?.password);
 
       if (result) {
-        res.json({ Login: true, message: "Login successful" });
+        const userRole = data[0].role;
+
+        const token = jwt.sign(
+          {
+            id: data[0].id,
+            name: data[0].name,
+            role: data[0].role,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: '1d' }
+        );
+
+        if (userRole === 'user' || userRole === 'owner') {
+          res.status(200).json({
+            Login: true,
+          
+            user: {
+              name: data[0].name,
+              email: data[0].email,
+              username: data[0].username,
+              role: userRole
+            },
+            token
+          });
+        } else {
+          res.json({ Login: false, message: "Invalid role" });
+        }
       } else {
         res.json({ Login: false, message: "Invalid email or password" });
       }
@@ -23,29 +50,56 @@ export const loginUser = async (req, res) => {
   });
 };
 
+
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({ error: "All fields are required" });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO register (name, email, password) VALUES (?, ?, ?)";
-
-    db.query(sql, [name, email, hashedPassword], (err, result) => {
+    const checkSql = "SELECT * FROM register WHERE email = ?";
+    db.query(checkSql, [email], async (err, results) => {
       if (err) {
-        if (err.code === "ER_DUP_ENTRY") {
-          return res.status(400).json({ error: "Email already exists" });
-        }
-        return res.status(500).json({ error: "Error inserting user", details: err.message });
+        return res.status(500).json({ error: "Database error", details: err.message });
+      }
+      if (results.length > 0) {
+        return res.status(400).json({ error: "User already exists" });
       }
 
-      return res.status(201).json({ message: "User registered successfully" });
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Insert new user
+      const insertSql = "INSERT INTO register (name, email, password, role) VALUES (?, ?, ?, ?)";
+      db.query(insertSql, [name, email, hashedPassword, role], (insertErr, insertResult) => {
+        if (insertErr) {
+          return res.status(500).json({ error: "Error inserting user", details: insertErr.message });
+        }
+
+        // Create JWT token
+        const token = jwt.sign(
+          { user: { id: insertResult.insertId, name, role } }, 
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+        );
+
+        // Send back response
+        res.status(201).json({
+          message: "User registered successfully!",
+          token,
+          user: {
+            id: insertResult.insertId,
+            name,
+            email,
+            role,
+          },
+        });
+      });
     });
 
   } catch (error) {
+    console.error("Error during registration:", error);
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
@@ -80,6 +134,7 @@ export const sendResetPasswordMail = async (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Error", details: err.message });
     }
+    
     const mail = new Mail();
     mail.setTo(email);
     mail.setSubject("Password Reset OTP");
@@ -178,7 +233,7 @@ export const searchData = async (req, res) => {
   const { query } = req.body;
   if (!query) return res.json([]); // Always return an array
 
-  const sql = "SELECT * FROM places WHERE LOWER(city) LIKE ?"; // Search by city
+  const sql = "SELECT * FROM places WHERE LOWER(city) LIKE ? "; // Search by city
   const searchValue = `%${query.toLowerCase()}%`;
 
   db.query(sql, [searchValue], (err, results) => {
@@ -189,32 +244,6 @@ export const searchData = async (req, res) => {
   });
 };
 
-// export const cityResult = async (req, res) => {
-//   const { id, city } = req.params;  
-
-//   let sql;
-//   let queryParam;
-
-//   if (id) {
-//       sql = "SELECT * FROM places WHERE id = ?";
-//       queryParam = [id];
-//   } else if (city) {
-//       sql = "SELECT * FROM places WHERE city LIKE ?";
-//       queryParam = [`%${city}%`];
-//   } else {
-//       return res.status(400).json({ error: "Invalid request. Please provide an ID or city name." });
-//   }
-
-//   db.query(sql, queryParam, (err, results) => {
-//       if (err) {
-//           return res.status(500).json({ error: "Database query failed", details: err.message });
-//       }
-//       if (results.length === 0) {
-//           return res.status(404).json({ message: "No data found for the given criteria." });
-//       }
-//       return res.status(200).json(results);
-//   });
-// };
 
 export const cityResult = async (req, res) => {
   const { city } = req.params;

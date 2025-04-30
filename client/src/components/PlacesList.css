@@ -1,138 +1,165 @@
-/* Apply styles only inside the .places-list-page */
+/* General Page Layout */
 .places-list-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: #f9f9f9;
     font-family: 'Poppins', sans-serif;
-    padding: 50px 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-}
-
-.grid {
+    /* padding: 10px 0; */
+  }
+  
+  /* Container */
+  .container {
+    width: 95%;
+    max-width: 1300px;
+  }
+  
+  /* Hero Section */
+  .hero.enhanced-hero {
+    width: 100%;
+    background: url('/src/assets/Road-trip.jpg') center/cover no-repeat;
+    height: 350px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+    position: absolute; /* Position the overlay absolutely within the parent */
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .hero-content {
+    color: #fff;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+  }
+  
+  .hero-content p {
+    font-size: 18px;
+    font-weight: 300;
+    color: white;
+  }
+  
+  /* Category Title */
+  .place-category-title {
+    font-size: 28px;
+    color: #03445c;
+    margin: 30px 0 15px;
+    text-align: center;
+  }
+  
+  /* Grid Layout */
+  .grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 35px;
     width: 100%;
-}
-
-
-.card {
-    background-color: #f9f9f9;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    width: 350px;
-    text-align: left;
-    padding-bottom: 20px;
-}
-
-.card-content{
-    border-radius: 20px 20px 0 0 ;
-    margin-top: -5px;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 15px 15px 0 0;
-}
-
-.card h3 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    padding: 20px 20px 10px;
-}
-
-.card p {
-    font-size: 14px;
-    color: #666;
-    padding: 0 20px;
-    margin: 5px 0;
-}
-
-.card .date {
-    font-size: 12px;
-    color: #aaa;
-    padding: 0 20px;
-    margin-top: 5px;
-}
-
-/* Buttons Container */
-.card-buttons {
-    display: flex;
-    justify-content: space-between; /* Ensures buttons are aligned in a row */
-    gap: 10px; /* Adds spacing between buttons */
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 300px;
   }
   
-  /* Button Styling */
+  /* Card Design */
+  .card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    width: 330px;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+  }
+  
+  .card-content {
+    padding: 18px 20px;
+  }
+  
+  .card h3 {
+    font-size: 20px;
+    color: #023e55;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .card .date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+  }
+  
+  /* Card Buttons */
+  .card-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
   .book-now-btn,
   .add-to-cart-btn {
-    flex: 1; /* Makes both buttons equal in width */
-    padding: 12px 15px;
-    border: none;
-    border-radius: 9px;
-    font-size: 16px;
+    flex: 1;
+    padding: 10px;
+    font-size: 15px;
     font-weight: 600;
-    cursor: pointer;
+    border: none;
+    border-radius: 8px;
     text-align: center;
+    cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
   }
   
   .book-now-btn {
-    background-color: #247b97;
-    color: #e0ecff;
+    background-color: #0099cc;
+    color: #ffffff;
   }
   
   .book-now-btn:hover {
-    background-color: #e0ecff;
-    color: #247b97;
+    background-color: #007ca8;
   }
   
   .add-to-cart-btn {
-    background-color: #e0ecff;
-    color: #247b97;
+    background-color: #e6f2f9;
+    color: #006b8f;
   }
   
   .add-to-cart-btn:hover {
-    background-color: #247b97;
-    color: #e0ecff;
+    background-color: #d4edf9;
+    color: #004e6c;
   }
   
-
-/* .book-now-btn, .add-to-cart-btn {
-    display: block;
-    width: calc(100% - 40px);
-    margin: 15px auto 0;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.book-now-btn:hover , .add-to-cart-btn:hover{
-    background-color: #0056b3;
-} */
+  /* Loader & Error */
+  .loading,
+  .error {
+    font-size: 20px;
+    color: #333;
+    margin-top: 60px;
+  }
+  
