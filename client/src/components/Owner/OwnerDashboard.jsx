@@ -20,7 +20,7 @@ const OwnerDashboard = () => {
       <div className="dashboard-cards">
         <div className="dashboard-card" onClick={handleAddProperty}>
           <h2>Add Property</h2>
-          <p>List your new property for guests</p>
+          <p className="card-quote">"Turn your space into someone’s next dream stay!"</p>
         </div>
 
         <div className="dashboard-card" onClick={handleViewRequests}>

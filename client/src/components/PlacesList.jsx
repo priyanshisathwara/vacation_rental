@@ -73,11 +73,6 @@ const PlacesList = () => {
                   <Link to={`/book-now/${place.id}`} className="book-now-btn">
                     Book Now
                   </Link>
-                  {user && user.role === "owner" && (
-                    <Link to={`/update-place/${place.id}`} className="add-to-cart-btn">
-                      Update Place
-                    </Link>
-                  )}
                 </div>
               </div>
             </div>

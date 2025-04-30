@@ -138,7 +138,7 @@
   .status-label.pending {
     color: orange;
   }
-  
+
   .status-label.accepted {
     color: green;
   }
@@ -147,3 +147,41 @@
     color: red;
   }
   
+  .actions-container {
+    display: flex; /* Use flexbox to arrange buttons horizontally */
+    gap: 20px; /* Space between the buttons */
+    align-items: center; /* Vertically align items (if needed) */
+  }
+  
+  /* Styling for the Update button */
+  .update-btn {
+    background-color: rgb(21, 120, 150); /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-btn:hover {
+    background-color: rgba(21, 120, 150, 0.564);
+  }
+  
+  /* Styling for the Delete button */
+  .delete-btn {
+    background-color: #e53935; /* Red background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e25349c7;
+  }

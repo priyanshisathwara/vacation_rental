@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OwnerRequestList.css'; // create CSS for your styling if needed
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OwnerRequestList = () => {
   const [places, setPlaces] = useState([]);
@@ -24,7 +27,7 @@ const OwnerRequestList = () => {
     }
   };
 
-  
+
   const fetchOwnerPlaces = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/admin/owner-places', {
@@ -41,6 +44,28 @@ const OwnerRequestList = () => {
       console.error('Error fetching owner places:', error);
     }
   };
+
+  const handleDelete = async (placeId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this property?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:8000/api/admin/places/${placeId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Property deleted successfully.");
+      // Refresh the list
+      fetchOwnerPlaces();
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast.error("Failed to delete property.");
+    }
+  };
+
 
   return (
     <div className="owner-places-container">
@@ -61,17 +86,32 @@ const OwnerRequestList = () => {
 
               {/* Status */}
               <div className="property-status">
-  Status: <span className={`status-label ${getStatus(place.is_approved).toLowerCase()}`}>
-    {getStatus(place.is_approved)}
-  </span>
-</div>
+                Status: <span className={`status-label ${getStatus(place.is_approved).toLowerCase()}`}>
+                  {getStatus(place.is_approved)}
+                </span>
+              </div>
 
 
               <p>Location: {place.city}</p>
               <p>Price: ₹{place.price} /night</p>
+              <div className="actions-container">
+                {place.is_approved === 1 && (
+                  <Link to={`/update-place/${place.id}`} className="update-btn">
+                    Update Place
+                  </Link>
+                )}
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(place.id)}
+                >
+                  Delete
+                </button>
+              </div>
+
+
             </div>
           ))}
-
+          <ToastContainer />
         </div>
       )}
     </div>

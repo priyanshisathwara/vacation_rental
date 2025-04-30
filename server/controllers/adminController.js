@@ -164,3 +164,30 @@ export const updatePlace = async (req, res) => {
     });
   });
 };
+
+export const deletePlace = (req, res) => {
+  const { id } = req.params;
+  const userId = req.user?.id;
+
+  // Step 1: Check if place exists and is owned by this user
+  const checkPlaceQuery = 'SELECT * FROM places WHERE id = ?';
+
+  db.query(checkPlaceQuery, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: 'Failed to fetch place' });
+
+    if (results.length === 0) return res.status(404).json({ message: 'Place not found' });
+
+    const place = results[0];
+    if (place.owner_id !== userId) {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    // Step 2: Delete the place
+    const deleteQuery = 'DELETE FROM places WHERE id = ?';
+    db.query(deleteQuery, [id], (err, result) => {
+      if (err) return res.status(500).json({ error: 'Failed to delete place' });
+
+      res.status(200).json({ message: 'Place deleted successfully' });
+    });
+  });
+};
