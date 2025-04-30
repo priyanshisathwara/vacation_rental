@@ -6,7 +6,7 @@ const WhiteRannPage = () => {
     <div className="white-rann-container">
       <h1>The Enchanting White Rann of Kutch</h1>
       <p className="intro">
-        <img src='/src/assets/whiterann.jpeg'/><br/>
+        <img src='/src/assets/whiterann.jpeg' className='places-image'/><br/>
         A vast, shimmering salt desert that transforms into a magical landscape under the moonlight—
         the White Rann of Kutch is one of India’s most surreal and breathtaking natural wonders.
       </p>

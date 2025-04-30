@@ -9,7 +9,7 @@
   
   .white-rann-container h1 {
     font-size: 2.8rem;
-    color: #00695c;
+    color: #145374;
     text-align: center;
     margin-bottom: 1.5rem;
   }
@@ -23,7 +23,7 @@
   }
   
   .rann-section {
-    background-color: #f2fdfb;
+    background-color: #f2f7fd;
     padding: 2rem;
     border-radius: 16px;
     margin-bottom: 2rem;
@@ -32,7 +32,7 @@
   
   .rann-section h2 {
     font-size: 1.8rem;
-    color: #00796b;
+    color: #145374;
     margin-bottom: 1rem;
   }
   
@@ -45,6 +45,14 @@
   }
   
   .rann-section strong {
-    color: #004d40;
+    color: #145374;
   }
   
+  .places-image{
+    width: 70%;     /* Or any percentage or fixed size */
+    max-width: 900px;  /* Optional: set a max size */
+    height: auto;   /* Keeps aspect ratio */
+    display: block;
+    margin: 0 auto;
+  }
+

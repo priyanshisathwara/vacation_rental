@@ -120,7 +120,10 @@ section h3 {
   margin-bottom: 2rem;
   color: #333;
 }
-
+.popular-destinations {
+  margin-top: 0; /* Remove top margin if it exists */
+  padding-top: 2px; /* Optional: keeps some breathing room */
+}
 /* Flex container for destination cards */
 .destination-cards {
   display: flex;
@@ -174,7 +177,6 @@ section h3 {
   font-weight: 500;
   color: #444;
 }
-
 
 /* Card container */
 .experience-cards {
@@ -267,7 +269,10 @@ section h3 {
   font-size: 1rem;
   color: #333;
 }
-
+.owner-dashboard-container {
+  text-align: center;
+  margin-bottom: 20px; /* Reduce this if needed */
+}
 .owner-dashboard-btn {
   background: rgb(21, 120, 150); /* Blue background color */
   color: white; /* White text color */
@@ -293,92 +298,6 @@ section h3 {
   background-color: #003d80; /* Even darker blue when clicked */
   transform: scale(1); /* Reset the scale on click */
 }
-
-
-.o-add-property-card {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 800px;
-  height: 200px;
-  background-color: #f0f8ff;
-  border: 2px dashed #0b92b7d1;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-align: center;
-  padding: 20px;
-  margin: 20px auto;
-
-  &:hover {
-    background-color: #e0f7fa;
-    transform: scale(1.03);
-    box-shadow: 0 6px 16px rgba(0, 188, 212, 0.3);
-  }
-
-  .owner-card-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-  }
-
-  .owner-card-text {
-    font-size: 18px;
-    color: #00796b;
-    font-weight: 600;
-  }
-
-  .card-quote {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #0097a7;
-    font-style: italic;
-    font-weight: 500;
-  }
-}
-
-.owner-actions {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-
-.o-update-property-card {
-  cursor: pointer;
-  background-color: #fefefe;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  width: 250px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.o-update-property-card:hover {
-  transform: scale(1.05);
-  background-color: #f4faff;
-}
-
-.owner-card-icon {
-  font-size: 2rem;
-}
-
-.owner-card-text {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.card-quote {
-  font-style: italic;
-  font-size: 0.85rem;
-  margin-top: 10px;
-  color: #555;
-}
-
 
 
 @media (max-width: 1024px) {

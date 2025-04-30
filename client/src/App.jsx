@@ -33,6 +33,7 @@ import Saputara from './components/home-component/Saputara';
 import LuxurySpa from './components/home-component/LuxurySpa';
 import HikingInGujarat from './components/home-component/HikingInGujarat';
 import LocalCuisineInGujarat from './components/home-component/LocalCuisineInGujarat';
+import ScrollToTop from './components/ScrollToTop';
 
 
 
@@ -40,6 +41,7 @@ function App() {
 
   return (
    <BrowserRouter>
+   <ScrollToTop />
    <Routes>
    <Route path='/' element={<Home />}/>
     <Route path='/register' element={<Signup />}></Route>

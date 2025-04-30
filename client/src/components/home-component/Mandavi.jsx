@@ -6,7 +6,7 @@ const MandviPage = () => {
     <div className="white-rann-container">
       <h1>Relax at the Golden Shores of Mandvi Beach</h1>
       <p className="intro">
-        <img src="/src/assets/mandvi.jpg" alt="Mandvi Beach" /><br />
+        <img src="/src/assets/mandvi.jpg" alt="Mandvi Beach" className='places-image'/><br />
         Mandvi is a charming coastal town in Kutch, perfect for a beach getaway with historical charm and scenic beauty.
       </p>
 

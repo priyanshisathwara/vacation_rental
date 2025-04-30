@@ -6,7 +6,7 @@ const KutchMuseumPage = () => {
     <div className="white-rann-container">
       <h1>Step into History at the Kutch Museum</h1>
       <p className="intro">
-        <img src="/src/assets/museem.jpg" alt="Kutch Museum" /><br />
+        <img src="/src/assets/museem.jpg" alt="Kutch Museum" className='places-image' /><br />
         The Kutch Museum in Bhuj is Gujarat's oldest museum and a treasure trove of Kutch’s history, culture, and art.
       </p>
 

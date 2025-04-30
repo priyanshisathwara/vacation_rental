@@ -6,7 +6,7 @@ const KalaDungarPage = () => {
     <div className="white-rann-container">
       <h1>The Majestic Kala Dungar (Black Hill)</h1>
       <p className="intro">
-        <img src="/src/assets/kaladungar.jpg" alt="Kala Dungar" /><br />
+        <img src="/src/assets/kaladungar.jpg" alt="Kala Dungar" className='places-image'/><br />
         Kala Dungar, meaning "Black Hill", is the highest point in the Kutch region and offers stunning views of the White Rann and surrounding landscapes.
         It’s not just a geographical marvel but also a place of deep spiritual and cultural significance.
       </p>

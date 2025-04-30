@@ -68,12 +68,12 @@
     border-radius: 16px;
     padding: 2.5rem;
     margin-top: 3rem;
-    box-shadow: 0 4px 12px rgba(0, 105, 92, 0.1);
+    background-color: #9bd3f143;
     transition: background-color 0.3s ease;
   }
   
   .kutch-experience:hover {
-    background-color: #339fda79;
+    background-color: #33a0dab3;
   }
   
   .kutch-experience h2 {

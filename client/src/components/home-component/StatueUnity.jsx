@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./StatueOfUnity.css";
 
 const StatueOfUnity = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when page mounts
+  }, []);
+
+
   return (
     <div className="sou-container">
       <header className="sou-header">

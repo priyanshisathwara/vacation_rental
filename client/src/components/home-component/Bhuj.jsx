@@ -6,7 +6,7 @@ const BhujPage = () => {
     <div className="white-rann-container">
       <h1>Discover the Historic City of Bhuj</h1>
       <p className="intro">
-        <img src="/src/assets/bhuj.webp" alt="Bhuj" /><br />
+        <img src="/src/assets/bhuj.webp" alt="Bhuj" className='places-image'/><br />
         Bhuj is the cultural heart of Kutch, a city steeped in history, royal palaces, bustling bazaars, and artistic heritage.
       </p>
 
