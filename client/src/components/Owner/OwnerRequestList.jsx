@@ -19,7 +19,7 @@ const OwnerRequestList = () => {
       case 0:
         return "Pending";
       case 1:
-        return "Accepted";
+        return "Approved";
       case 2:
         return "Rejected";
       default:

@@ -35,8 +35,6 @@ import HikingInGujarat from './components/home-component/HikingInGujarat';
 import LocalCuisineInGujarat from './components/home-component/LocalCuisineInGujarat';
 import ScrollToTop from './components/ScrollToTop';
 
-
-
 function App() {
 
   return (
@@ -77,17 +75,6 @@ function App() {
     <Route path="/spa" element={<LuxurySpa />} />
     <Route path="/hiking" element={<HikingInGujarat />} />
     <Route path="/cusine" element={<LocalCuisineInGujarat />} />
-
-
-    
-    
-
-
-
-
-
-
-
   
    </Routes>
    </BrowserRouter>

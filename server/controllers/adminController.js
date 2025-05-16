@@ -103,26 +103,53 @@ export const placeResult = async (req, res) => {
 };
 
 
-export const createBooking = async (req, res) => {
+export const createBooking = (req, res) => {
   const { placeId, checkInDate, checkOutDate, guests, userName } = req.body;
 
-  if (!placeId || !checkInDate || !checkOutDate || !guests) {
+  if (!placeId || !checkInDate || !checkOutDate || !guests || !userName) {
     return res.status(400).json({ error: "All booking fields are required." });
   }
 
-  const sql = `
-    INSERT INTO bookings (place_id, check_in_date, check_out_date, guests, userName)
-    VALUES (?, ?, ?, ?, ?)
+  // Step 1: Check for overlapping bookings
+  const overlapQuery = `
+    SELECT * FROM bookings
+    WHERE place_id = ?
+      AND (
+        (check_in_date <= ? AND check_out_date >= ?) OR
+        (check_in_date <= ? AND check_out_date >= ?) OR
+        (check_in_date >= ? AND check_out_date <= ?)
+      )
   `;
-  const queryParams = [placeId, checkInDate, checkOutDate, guests, userName];
 
-  db.query(sql, [placeId, checkInDate, checkOutDate, guests, userName], (err, result) => {
-    if (err) {
-      console.error('Booking failed:', err);
-      return res.status(500).json({ error: 'Booking failed', details: err.message });
+  db.query(overlapQuery, [
+    placeId,
+    checkOutDate, checkInDate,
+    checkOutDate, checkOutDate,
+    checkInDate, checkOutDate
+  ], (overlapErr, results) => {
+    if (overlapErr) {
+      console.error('Overlap check failed:', overlapErr);
+      return res.status(500).json({ error: 'Server error during overlap check' });
     }
 
-    res.status(201).json({ message: 'Booking successful', bookingId: result.insertId });
+    if (results.length > 0) {
+      return res.status(409).json({ message: 'This place is already booked for the selected dates.' });
+    }
+
+    // Step 2: Insert booking if no conflict
+    const insertQuery = `
+      INSERT INTO bookings (place_id, check_in_date, check_out_date, guests, userName)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(insertQuery, [placeId, checkInDate, checkOutDate, guests, userName], (insertErr, result) => {
+      if (insertErr) {
+        console.error('Booking failed:', insertErr);
+        return res.status(500).json({ error: 'Booking failed', details: insertErr.message });
+      }
+
+      res.status(201).json({ message: 'Booking confirmed', bookingId: result.insertId });
+    });
   });
 };
 
@@ -189,5 +216,39 @@ export const deletePlace = (req, res) => {
 
       res.status(200).json({ message: 'Place deleted successfully' });
     });
+  });
+};
+
+
+export const getBookingsByUser = (req, res) => {
+  const { userName } = req.params;
+
+  if (!userName) {
+    return res.status(400).json({ error: "User name is required." });
+  }
+
+  const sql = `
+    SELECT 
+      bookings.id, 
+      bookings.place_id, 
+      bookings.check_in_date, 
+      bookings.check_out_date, 
+      bookings.guests, 
+      bookings.created_at, 
+      places.place_name, 
+      places.price, 
+      places.image 
+    FROM bookings 
+    JOIN places ON bookings.place_id = places.id 
+    WHERE bookings.userName = ?
+  `;
+
+  db.query(sql, [userName], (err, results) => {
+    if (err) {
+      console.error('Failed to fetch user bookings:', err);
+      return res.status(500).json({ error: 'Failed to fetch bookings' });
+    }
+
+    res.status(200).json(results);
   });
 };
