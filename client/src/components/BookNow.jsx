@@ -13,16 +13,22 @@ const BookNow = () => {
   const [guests, setGuests] = useState(1);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (!user) {
-      toast.error('You must login first!');
-      navigate('/login');
-    }
-  }, []);
+ useEffect(() => {
+  const storedUser = localStorage.getItem('user');
+  if (!storedUser) {
+    toast.error('You must login first!');
+    navigate('/login');
+  } else {
+    const parsedUser = JSON.parse(storedUser);
+    setUserEmail(parsedUser.email); // assuming user object has an 'email' field
+  }
+}, []);
+
 
   useEffect(() => {
     const fetchPlaceData = async () => {
@@ -42,6 +48,8 @@ const BookNow = () => {
   
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
+    const user = JSON.parse(localStorage.getItem('user'));
+
   
     if (checkOut <= checkIn) {
       toast.error('Check-out date must be after check-in date.');
@@ -59,11 +67,12 @@ const BookNow = () => {
         checkInDate,
         checkOutDate,
         guests,
-        userName
+        userName,
+        userEmail: user.email
       });
   
       setBookingConfirmed(true);
-      toast.success(`Booking Confirmed for ${userName}`);
+      toast.success(`Booking Confirmed for ${userName} ! Please check your email for confirmation`);
     } catch (error) {
       if (error.response && error.response.status === 409) {
         toast.error(error.response.data.message || 'The selected dates are already booked.');
