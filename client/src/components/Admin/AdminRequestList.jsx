@@ -51,7 +51,6 @@ const AdminRequestList = () => {
       })
       .then((response) => {
         console.log(response.data);
-        toast.success('Place has been approved!');
         setPlacesData(placesData.filter((place) => place.id !== id));
       })
       .catch((err) => {
