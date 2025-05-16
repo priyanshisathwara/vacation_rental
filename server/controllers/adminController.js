@@ -1,5 +1,6 @@
 import { createPlace } from '../models/Places.js';
 import db from "../config/db.js";
+import { Mail } from "../config/mailer.js";
 
 
 export const addPlace = async (req, res) => {
@@ -104,7 +105,7 @@ export const placeResult = async (req, res) => {
 
 
 export const createBooking = (req, res) => {
-  const { placeId, checkInDate, checkOutDate, guests, userName } = req.body;
+  const { placeId, checkInDate, checkOutDate, guests, userName, userEmail } = req.body;
 
   if (!placeId || !checkInDate || !checkOutDate || !guests || !userName) {
     return res.status(400).json({ error: "All booking fields are required." });
@@ -147,6 +148,16 @@ export const createBooking = (req, res) => {
         console.error('Booking failed:', insertErr);
         return res.status(500).json({ error: 'Booking failed', details: insertErr.message });
       }
+
+      const mail = new Mail();
+      mail.setTo(userEmail);
+      mail.setSubject("Booking Confirmed");
+      mail.setText(`
+        Hello ${userName},
+        Your booking has been confirmed from ${checkInDate} to ${checkOutDate}.
+        Thank you for choosing our service!
+      `);
+      mail.send(); // Assuming this handles its own errors/logs
 
       res.status(201).json({ message: 'Booking confirmed', bookingId: result.insertId });
     });
